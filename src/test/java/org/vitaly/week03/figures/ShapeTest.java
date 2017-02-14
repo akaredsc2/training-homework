@@ -3,19 +3,18 @@ package org.vitaly.week03.figures;
 import org.junit.Before;
 import org.junit.Test;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
 /**
  * Created by vitaly on 2017-02-14.
  */
 public class ShapeTest {
-    public static final double PRECISION = 0.001;
+    public static final double PRECISION = 0.0001;
     public static final double RING_AREA = PI;
-    public static final double TRIANGLE_AREA = 3.0 * sqrt(15.0) / 4;
-    public static final double PARALLELOGRAM_AREA = 3.6560;
-    public static final double TRAPEZIUM_AREA = 85.0;
+    public static final double TRIANGLE_AREA = 3 * sqrt(15) / 4;
+    public static final double PARALLELOGRAM_AREA = 5 * 6 * abs(sin(toRadians(7)));
+    public static final double TRAPEZIUM_AREA = 85;
 
     private Shape ring;
     private Shape triangle;
@@ -24,10 +23,10 @@ public class ShapeTest {
 
     @Before
     public void setUp() throws Exception {
-        this.ring = new Ring(1.0);
-        this.triangle = new Triangle(2.0, 3.0, 4.0);
-        this.parallelogram = new Parallelogram(5.0, 6.0, 7.0);
-        this.trapezium = new Trapezium(8.0, 9.0, 10.0);
+        this.ring = Ring.newRing(1);
+        this.triangle = Triangle.newTriangle(2, 3, 4);
+        this.parallelogram = Parallelogram.newParallelogram(5, 6, 7);
+        this.trapezium = Trapezium.newTrapezium(8, 9, 10);
     }
 
     @Test

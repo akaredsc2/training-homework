@@ -8,16 +8,25 @@ import static java.lang.Math.PI;
 public class Ring extends Shape {
     private final double radius;
 
-    public Ring() {
-        this(0.0);
-    }
-
-    public Ring(double radius) {
+    private Ring(double radius) {
         this.radius = radius;
     }
 
     @Override
     public double getArea() {
         return PI * radius * radius;
+    }
+
+    public static Ring newRing(double radius) {
+        if (Double.isNaN(radius)) {
+            throw new IllegalArgumentException("Radius is not a number!");
+        }
+        if (Double.isInfinite(radius)) {
+            throw new IllegalArgumentException("Radius is infinite!");
+        }
+        if (radius < 0) {
+            throw new IllegalArgumentException("Ring radius is less than zero!");
+        }
+        return new Ring(radius);
     }
 }

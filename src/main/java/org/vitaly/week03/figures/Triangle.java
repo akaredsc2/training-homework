@@ -1,5 +1,7 @@
 package org.vitaly.week03.figures;
 
+import static java.lang.Double.isInfinite;
+import static java.lang.Double.isNaN;
 import static java.lang.Math.sqrt;
 
 /**
@@ -8,11 +10,7 @@ import static java.lang.Math.sqrt;
 public class Triangle extends Shape {
     private final double[] sides;
 
-    public Triangle() {
-        this(0.0, 0.0, 0.0);
-    }
-
-    public Triangle(double firstSide, double secondSide, double thirdSide) {
+    private Triangle(double firstSide, double secondSide, double thirdSide) {
         this.sides = new double[]{firstSide, secondSide, thirdSide};
     }
 
@@ -32,5 +30,27 @@ public class Triangle extends Shape {
             result += side;
         }
         return result;
+    }
+
+    public static Triangle newTriangle(double firstSide, double secondSide, double thirdSide) {
+        if (isNaN(firstSide) || isNaN(secondSide) || isNaN(thirdSide)) {
+            throw new IllegalArgumentException("One of triangle sides is not a number!");
+        }
+        if (isInfinite(firstSide) || isInfinite(secondSide) || isInfinite(thirdSide)) {
+            throw new IllegalArgumentException("One of triangle sides is infinite!");
+        }
+        if (firstSide < 0 || secondSide < 0 || thirdSide < 0) {
+            throw new IllegalArgumentException("One of triangle sides is less than zero!");
+        }
+        if (!isTriangleInequalityCorrect(firstSide, secondSide, thirdSide)) {
+            throw new IllegalArgumentException("Triangle inequality is not satisfied!");
+        }
+        return new Triangle(firstSide, secondSide, thirdSide);
+    }
+
+    public static boolean isTriangleInequalityCorrect(double firstSide, double secondSide, double thirdSide) {
+        return firstSide + secondSide >= thirdSide
+                && firstSide + thirdSide >= secondSide
+                && secondSide + thirdSide >= firstSide;
     }
 }
