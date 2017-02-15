@@ -3,24 +3,54 @@ package org.vitaly.week03.lists;
 import java.util.Iterator;
 
 /**
- * Created by vitaly on 2017-02-14.
+ * Created by vitaly on 15.02.17.
  */
-public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
-    private Entry<T> first;
+public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
+    private Entry<T> header;
     private int size;
 
-    public SinglyLinkedList() {
+    public DoublyLinkedList() {
+        header = new Entry<>(null, null, null);
     }
 
     @Override
     public int getSize() {
-        return size;
+        return this.size;
+    }
+
+    private Entry<T> getFirst() {
+        return header.prev;
+    }
+
+    private Entry<T> getLast() {
+        return header.next;
     }
 
     @Override
     public void insertFirst(T data) {
-        this.first = new Entry<>(first, data);
-        this.size += 1;
+        Entry<T> newEntry = new Entry<>(null, null, data);
+        if (size == 0) {
+            header.prev = newEntry;
+            header.next = newEntry;
+        } else {
+            newEntry.next = getFirst();
+            getFirst().prev = newEntry;
+            header.prev = newEntry;
+        }
+        size += 1;
+    }
+
+    public void insertLast(T data) {
+        Entry<T> newEntry = new Entry<>(null, null, data);
+        if (size == 0) {
+            header.prev = newEntry;
+            header.next = newEntry;
+        } else {
+            newEntry.prev = getLast();
+            getLast().next = newEntry;
+            header.next = newEntry;
+        }
+        size += 1;
     }
 
     @Override
@@ -29,49 +59,42 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
         if (position == 0) {
             insertFirst(data);
+        } else if (position == this.size) {
+            insertLast(data);
         } else {
-            Entry<T> currentEntry = first;
+            Entry<T> newEntry = new Entry<>(null, null, data);
+            Entry<T> currentEntry = getFirst();
             for (int i = 0; i < position - 1; i++) {
                 currentEntry = currentEntry.next;
             }
-
-            if (position == this.size) {
-                currentEntry.next = new Entry<>(null, data);
-            } else {
-                Entry<T> newEntry = new Entry<>(currentEntry.next, data);
-                currentEntry.next = newEntry;
-            }
+            newEntry.prev = currentEntry;
+            newEntry.next = currentEntry.next;
+            currentEntry.next = newEntry;
             size += 1;
         }
     }
 
     @Override
     public void removeFirst() {
-        if (this.size > 0) {
-            this.first = this.first.next;
-            this.size -= 1;
+        if (size != 0) {
+            if (size == 1) {
+                header.prev = null;
+                header.next = null;
+            } else {
+                header.prev = header.prev.next;
+                header.prev = null;
+            }
+            size -= 1;
         }
+    }
+
+    public void removeLast() {
+
     }
 
     @Override
     public void removeAt(int position) {
-        checkPosition(position);
 
-        if (position == 0) {
-            removeFirst();
-        } else {
-            Entry<T> currentEntry = first;
-            for (int i = 0; i < position - 1; i++) {
-                currentEntry = currentEntry.next;
-            }
-
-            if (position == this.size) {
-                currentEntry.next = null;
-            } else {
-                currentEntry.next = currentEntry.next.next;
-            }
-            size -= 1;
-        }
     }
 
     @Override
@@ -84,7 +107,6 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
             } else if (data.equals(element)) {
                 return true;
             }
-
         }
         return false;
     }
@@ -92,13 +114,14 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     @Override
     public int positionOf(T data) {
         int i = 0;
-        for (T entryData : this) {
+
+        for (T current : this) {
             if (data == null) {
-                if (entryData == null) {
+                if (current == null) {
                     return i;
                 }
             } else {
-                if (data.equals(entryData)) {
+                if (data.equals(current)) {
                     return i;
                 }
             }
@@ -118,7 +141,9 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
         }
 
         Iterator<T> iterator = this.iterator();
-        T result = iterator.next();
+        T result =
+//                iterator.next()
+                null;
 
         for (int i = 0; i < position; i++) {
             if (iterator.hasNext()) {
@@ -139,52 +164,42 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
             }
         }
 
-        if (first != null) {
-            Entry<T> target = first;
-            for (int i = 0; i < position; i++) {
-                target = target.next;
-            }
-
-            target.data = data;
+        Entry<T> target = getFirst();
+        for (int i = 0; i < position - 1; i++) {
+            target = target.next;
         }
-    }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("SinglyLinkedList{");
-        for (T element : this) {
-            builder.append(element)
-                    .append(" ");
-        }
-        return builder.append("\b}").toString();
+        target.data = data;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            Entry<T> current = new Entry<>(SinglyLinkedList.this.first, null);
+            DoublyLinkedList.Entry<T> current = DoublyLinkedList.this.getFirst();
 
             @Override
             public boolean hasNext() {
-                return current != null && current.next != null;
+                return current != null;
             }
 
             @Override
             public T next() {
-                T result = current.next.data;
+                T result = current.data;
                 current = current.next;
                 return result;
             }
         };
     }
 
+
     private static class Entry<T> {
         public Entry<T> next;
+        public Entry<T> prev;
         public T data;
 
-        public Entry(Entry<T> next, T data) {
+        public Entry(Entry<T> next, Entry<T> prev, T data) {
             this.next = next;
+            this.prev = prev;
             this.data = data;
         }
     }

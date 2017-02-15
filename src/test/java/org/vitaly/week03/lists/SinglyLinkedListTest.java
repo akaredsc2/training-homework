@@ -178,6 +178,11 @@ public class SinglyLinkedListTest {
         list.getDataAt(10);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetDataAtPositionEqualToListSize() throws Exception {
+        list.setDataAt(0, 0);
+    }
+
     @Test
     public void testSetDataAt() throws Exception {
         list.insertFirst(6);
@@ -201,5 +206,10 @@ public class SinglyLinkedListTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetDataAtPositionGreaterThanListSize() throws Exception {
         list.setDataAt(10, 10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetDataAtPositionEqualToListSize() throws Exception {
+        list.setDataAt(0, 0);
     }
 }
