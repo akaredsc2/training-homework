@@ -40,12 +40,12 @@ public class SinglyLinkedListTest {
     }
 
     @Test
-    public void insertAfter() throws Exception {
-        list.insertAfter(0, 9);
-        list.insertAfter(1, 8);
-        list.insertAfter(2, 7);
-        list.insertAfter(3, 6);
-        list.insertAfter(1, 5);
+    public void insertAt() throws Exception {
+        list.insertAt(0, 9);
+        list.insertAt(1, 8);
+        list.insertAt(2, 7);
+        list.insertAt(3, 6);
+        list.insertAt(1, 5);
         assertEquals(5, list.getSize());
 
         Iterator<Integer> iterator = list.iterator();
@@ -58,13 +58,13 @@ public class SinglyLinkedListTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void insertAfterNegativePosition() throws Exception {
-        list.insertAfter(-1, 1);
+    public void insertAtNegativePosition() throws Exception {
+        list.insertAt(-1, 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void removeAfterPositionGreaterThanListSize() throws Exception {
-        list.insertAfter(10, 1);
+    public void insertAtPositionGreaterThanListSize() throws Exception {
+        list.insertAt(10, 1);
     }
 
     @Test
@@ -87,8 +87,43 @@ public class SinglyLinkedListTest {
     }
 
     @Test
-    public void removeAfter() throws Exception {
+    public void removeAt() throws Exception {
+        list.insertFirst(1);
+        list.insertFirst(2);
+        list.insertFirst(3);
 
+        assertTrue(list.contains(2));
+        list.removeAt(1);
+        assertEquals(2, list.getSize());
+        assertFalse(list.contains(2));
+
+        assertTrue(list.contains(1));
+        list.removeAt(1);
+        assertEquals(1, list.getSize());
+        assertFalse(list.contains(1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeAfterNegativePosition() throws Exception {
+        list.removeAt(-10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeAfterPositionGreaterThanListSize() throws Exception {
+        list.removeAt(10);
+    }
+
+    @Test
+    public void testPositionOf() throws Exception {
+        assertEquals(-1, list.positionOf(10));
+
+        list.insertFirst(5);
+        list.insertFirst(4);
+        list.insertFirst(3);
+        assertEquals(2, list.positionOf(5));
+
+        list.insertFirst(null);
+        assertEquals(0, list.positionOf(null));
     }
 
     @Test
@@ -116,5 +151,55 @@ public class SinglyLinkedListTest {
     @Test
     public void testContainsOnEmptyList() throws Exception {
         assertFalse(list.contains(100));
+    }
+
+    @Test
+    public void testGetDataAt() throws Exception {
+        list.insertFirst(5);
+        list.insertFirst(6);
+        list.insertFirst(7);
+        list.insertFirst(8);
+        list.insertFirst(null);
+
+        assertEquals(5, list.getDataAt(4).intValue());
+        assertEquals(6, list.getDataAt(3).intValue());
+        assertEquals(7, list.getDataAt(2).intValue());
+        assertEquals(8, list.getDataAt(1).intValue());
+        assertEquals(null, list.getDataAt(0));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetDataAtNegativePosition() throws Exception {
+        list.getDataAt(-10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetDataAtPositionGreaterThanListSize() throws Exception {
+        list.getDataAt(10);
+    }
+
+    @Test
+    public void testSetDataAt() throws Exception {
+        list.insertFirst(6);
+        list.insertFirst(7);
+        list.insertFirst(8);
+
+        assertEquals(7, list.getDataAt(1).intValue());
+        list.setDataAt(1, 9);
+        assertEquals(9, list.getDataAt(1).intValue());
+
+        assertEquals(6, list.getDataAt(2).intValue());
+        list.setDataAt(2, null);
+        assertEquals(null, list.getDataAt(2));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetDataAtNegativePosition() throws Exception {
+        list.setDataAt(-10, -10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetDataAtPositionGreaterThanListSize() throws Exception {
+        list.setDataAt(10, 10);
     }
 }
