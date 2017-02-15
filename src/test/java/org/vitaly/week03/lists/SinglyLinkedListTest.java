@@ -32,7 +32,6 @@ public class SinglyLinkedListTest {
         assertEquals(4, list.getSize());
 
         Iterator<Integer> iterator = list.iterator();
-
         assertEquals(9, iterator.next().intValue());
         assertEquals(7, iterator.next().intValue());
         assertEquals(5, iterator.next().intValue());
@@ -44,7 +43,7 @@ public class SinglyLinkedListTest {
         list.insertAt(0, 9);
         list.insertAt(1, 8);
         list.insertAt(2, 7);
-        list.insertAt(3, 6);
+        list.insertAt(3, null);
         list.insertAt(1, 5);
         assertEquals(5, list.getSize());
 
@@ -54,7 +53,7 @@ public class SinglyLinkedListTest {
         assertEquals(5, iterator.next().intValue());
         assertEquals(8, iterator.next().intValue());
         assertEquals(7, iterator.next().intValue());
-        assertEquals(6, iterator.next().intValue());
+        assertEquals(null, iterator.next());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -69,19 +68,17 @@ public class SinglyLinkedListTest {
 
     @Test
     public void removeFirst() throws Exception {
+        list.removeFirst();
+        assertEquals(0, list.getSize());
+
         list.insertFirst(4);
         list.insertFirst(5);
         assertEquals(2, list.getSize());
 
         list.removeFirst();
         assertEquals(1, list.getSize());
+        assertEquals(4, list.iterator().next().intValue());
 
-        list.removeFirst();
-        assertEquals(0, list.getSize());
-    }
-
-    @Test
-    public void removeFirstInEmptyList() throws Exception {
         list.removeFirst();
         assertEquals(0, list.getSize());
     }
@@ -113,6 +110,37 @@ public class SinglyLinkedListTest {
         list.removeAt(10);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void removeAfterPositionEqualsToListSize() throws Exception {
+        list.insertFirst(45);
+        list.removeAt(1);
+    }
+
+    @Test
+    public void testContainsOnEmptyList() throws Exception {
+    }
+
+    @Test
+    public void testContains() throws Exception {
+        assertFalse(list.contains(100));
+
+
+        assertFalse(list.contains(6));
+        assertFalse(list.contains(8));
+        list.insertFirst(6);
+        list.insertFirst(8);
+        assertTrue(list.contains(8));
+        assertTrue(list.contains(6));
+
+        assertFalse(list.contains(null));
+        list.insertFirst(null);
+        assertTrue(list.contains(null));
+    }
+
+    @Test
+    public void testPositionOfNotInList() throws Exception {
+    }
+
     @Test
     public void testPositionOf() throws Exception {
         assertEquals(-1, list.positionOf(10));
@@ -121,36 +149,11 @@ public class SinglyLinkedListTest {
         list.insertFirst(4);
         list.insertFirst(3);
         assertEquals(2, list.positionOf(5));
+        assertEquals(1, list.positionOf(4));
+        assertEquals(0, list.positionOf(3));
 
         list.insertFirst(null);
         assertEquals(0, list.positionOf(null));
-    }
-
-    @Test
-    public void testContains() throws Exception {
-        list.insertFirst(5);
-        list.insertFirst(6);
-        list.insertFirst(7);
-        list.insertFirst(8);
-        assertTrue(list.contains(8));
-        assertTrue(list.contains(6));
-        assertFalse(list.contains(99));
-        assertFalse(list.contains(1));
-    }
-
-    @Test
-    public void testContainsNull() throws Exception {
-        list.insertFirst(2);
-        list.insertFirst(null);
-        list.insertFirst(3);
-        assertTrue(list.contains(null));
-        assertTrue(list.contains(2));
-        assertFalse(list.contains(1));
-    }
-
-    @Test
-    public void testContainsOnEmptyList() throws Exception {
-        assertFalse(list.contains(100));
     }
 
     @Test
@@ -158,14 +161,14 @@ public class SinglyLinkedListTest {
         list.insertFirst(5);
         list.insertFirst(6);
         list.insertFirst(7);
-        list.insertFirst(8);
         list.insertFirst(null);
+        list.insertFirst(8);
 
         assertEquals(5, list.getDataAt(4).intValue());
         assertEquals(6, list.getDataAt(3).intValue());
         assertEquals(7, list.getDataAt(2).intValue());
-        assertEquals(8, list.getDataAt(1).intValue());
-        assertEquals(null, list.getDataAt(0));
+        assertEquals(null, list.getDataAt(1));
+        assertEquals(8, list.getDataAt(0).intValue());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -211,5 +214,24 @@ public class SinglyLinkedListTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetDataAtPositionEqualToListSize() throws Exception {
         list.setDataAt(0, 0);
+    }
+
+    @Test
+    public void testIterator() throws Exception {
+        Iterator<Integer> iterator = list.iterator();
+        assertFalse(iterator.hasNext());
+
+        list.insertFirst(10);
+        list.insertFirst(20);
+        list.insertFirst(30);
+        iterator = list.iterator();
+        assertEquals(30, iterator.next().intValue());
+        assertEquals(20, iterator.next().intValue());
+        assertEquals(10, iterator.next().intValue());
+
+        list.removeFirst();
+        iterator = list.iterator();
+        assertEquals(20, iterator.next().intValue());
+        assertEquals(10, iterator.next().intValue());
     }
 }

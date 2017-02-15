@@ -55,7 +55,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void insertAt(int position, T data) {
-        checkPosition(position);
+//        checkPosition(position);
 
         if (position == 0) {
             insertFirst(data);
@@ -99,6 +99,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public boolean contains(T data) {
+        /*
         for (T element : this) {
             if (data == null) {
                 if (element == null) {
@@ -107,14 +108,14 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
             } else if (data.equals(element)) {
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
     @Override
     public int positionOf(T data) {
         int i = 0;
-
+/*
         for (T current : this) {
             if (data == null) {
                 if (current == null) {
@@ -126,14 +127,14 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
                 }
             }
             i += 1;
-        }
+        }*/
         return -1;
     }
 
     @Override
     public T getDataAt(int position) {
         if (position != 0) {
-            checkPosition(position - 1);
+//            checkPosition(position - 1);
         } else {
             if (size == 0) {
                 throw new IllegalArgumentException("List is empty!");
@@ -157,7 +158,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     @Override
     public void setDataAt(int position, T data) {
         if (position != 0) {
-            checkPosition(position - 1);
+//            checkPosition(position - 1);
         } else {
             if (size == 0) {
                 throw new IllegalArgumentException("List is empty!");

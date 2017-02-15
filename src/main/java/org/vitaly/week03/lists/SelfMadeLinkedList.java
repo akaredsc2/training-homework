@@ -22,12 +22,45 @@ public interface SelfMadeLinkedList<T> {
 
     void setDataAt(int position, T data);
 
-    default void checkPosition(int position) {
-        if (position < 0) {
-            throw new IllegalArgumentException("Negative position in list!");
+    default void checkGreaterThanOrEqualsTo(int position, int value, String errorMessage) {
+        if (!(position >= value)) {
+            throw new IllegalArgumentException(errorMessage);
         }
-        if (position > getSize()) {
-            throw new IllegalArgumentException("Position is greater than list size!");
+    }
+
+    default void checkLessThan(int position, int value, String errorMessage) {
+        if (!(position < value)) {
+            throw new IllegalArgumentException(errorMessage);
         }
+    }
+
+    static <T> boolean contains(SinglyLinkedList<T> list, T data) {
+        for (T element : list) {
+            if (data == null) {
+                if (element == null) {
+                    return true;
+                }
+            } else if (data.equals(element)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static <T> int positionOf(SinglyLinkedList<T> list, T data) {
+        int i = 0;
+        for (T entryData : list) {
+            if (data == null) {
+                if (entryData == null) {
+                    return i;
+                }
+            } else {
+                if (data.equals(entryData)) {
+                    return i;
+                }
+            }
+            i += 1;
+        }
+        return -1;
     }
 }
