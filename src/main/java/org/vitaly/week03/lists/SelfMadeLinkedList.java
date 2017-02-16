@@ -6,9 +6,6 @@ import java.util.Iterator;
  * Created by vitaly on 15.02.17.
  */
 public interface SelfMadeLinkedList<T> {
-    String LIST_IS_EMPTY = "List is empty!";
-    String POSITION_IS_LESS_THAN_ZERO = "Position is less than zero!";
-    String POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE = "Position is greater than or equals to list size!";
 
     int getSize();
 
@@ -27,18 +24,6 @@ public interface SelfMadeLinkedList<T> {
     T getDataAt(int position);
 
     void setDataAt(int position, T data);
-
-    default void checkGreaterThanOrEqualsTo(int position, int value, String errorMessage) {
-        if (!(position >= value)) {
-            throw new IllegalArgumentException(errorMessage);
-        }
-    }
-
-    default void checkLessThan(int position, int value, String errorMessage) {
-        if (!(position < value)) {
-            throw new IllegalArgumentException(errorMessage);
-        }
-    }
 
     static <T> boolean contains(Iterable<T> list, T data) {
         for (T element : list) {

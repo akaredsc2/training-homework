@@ -3,15 +3,14 @@ package org.vitaly.week03.lists;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static org.vitaly.util.Checker.*;
+
 /**
  * Created by vitaly on 2017-02-14.
  */
 public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     private Entry<T> first;
     private int size;
-
-    public SinglyLinkedList() {
-    }
 
     @Override
     public int getSize() {
@@ -26,8 +25,8 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void insertAt(int position, T data) {
-        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        checkLessThan(position, size + 1, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        confirmLessThan(position, size + 1, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (position == 0) {
             insertFirst(data);
@@ -57,8 +56,8 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void removeAt(int position) {
-        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        confirmLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (position == 0) {
             removeFirst();
@@ -87,18 +86,18 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public T getDataAt(int position) {
-        checkGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
-        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        confirmGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
+        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        confirmLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         return SelfMadeLinkedList.getDataAt(this, position);
     }
 
     @Override
     public void setDataAt(int position, T data) {
-        checkGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
-        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        confirmGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
+        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        confirmLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (first != null) {
             Entry<T> target = first;
@@ -133,8 +132,8 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     }
 
     private static class Entry<T> {
-        public Entry<T> next;
-        public T data;
+        private  Entry<T> next;
+        private T data;
 
         public Entry(Entry<T> next, T data) {
             this.next = next;
