@@ -117,10 +117,6 @@ public class SinglyLinkedListTest {
     }
 
     @Test
-    public void testContainsOnEmptyList() throws Exception {
-    }
-
-    @Test
     public void testContains() throws Exception {
         assertFalse(list.contains(100));
 
@@ -135,10 +131,6 @@ public class SinglyLinkedListTest {
         assertFalse(list.contains(null));
         list.insertFirst(null);
         assertTrue(list.contains(null));
-    }
-
-    @Test
-    public void testPositionOfNotInList() throws Exception {
     }
 
     @Test

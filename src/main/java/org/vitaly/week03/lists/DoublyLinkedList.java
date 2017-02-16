@@ -1,6 +1,7 @@
 package org.vitaly.week03.lists;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by vitaly on 15.02.17.
@@ -55,7 +56,8 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void insertAt(int position, T data) {
-//        checkPosition(position);
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size + 1, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (position == 0) {
             insertFirst(data);
@@ -70,6 +72,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
             newEntry.prev = currentEntry;
             newEntry.next = currentEntry.next;
             currentEntry.next = newEntry;
+            newEntry.next.prev = newEntry;
             size += 1;
         }
     }
@@ -82,95 +85,83 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
                 header.next = null;
             } else {
                 header.prev = header.prev.next;
-                header.prev = null;
+                header.prev.prev = null;
             }
             size -= 1;
         }
     }
 
     public void removeLast() {
-
+        if (size != 0) {
+            if (size == 1) {
+                header.prev = null;
+                header.next = null;
+            } else {
+                header.next = header.next.prev;
+                header.next.next = null;
+            }
+            size -= 1;
+        }
     }
 
     @Override
     public void removeAt(int position) {
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
+        if (position == 0) {
+            removeFirst();
+        } else if (position == size - 1) {
+            removeLast();
+        } else {
+            Entry<T> currentEntry = getFirst();
+            for (int i = 0; i < position - 1; i++) {
+                currentEntry = currentEntry.next;
+            }
+            Entry<T> target = currentEntry.next;
+
+            target.prev = null;
+            currentEntry.next = target.next;
+            target.next = null;
+            currentEntry.next.prev = currentEntry;
+            size -= 1;
+        }
     }
 
     @Override
     public boolean contains(T data) {
-        /*
-        for (T element : this) {
-            if (data == null) {
-                if (element == null) {
-                    return true;
-                }
-            } else if (data.equals(element)) {
-                return true;
-            }
-        }*/
-        return false;
+        return SelfMadeLinkedList.contains(this, data);
     }
 
     @Override
     public int positionOf(T data) {
-        int i = 0;
-/*
-        for (T current : this) {
-            if (data == null) {
-                if (current == null) {
-                    return i;
-                }
-            } else {
-                if (data.equals(current)) {
-                    return i;
-                }
-            }
-            i += 1;
-        }*/
-        return -1;
+        return SelfMadeLinkedList.positionOf(this, data);
     }
 
     @Override
     public T getDataAt(int position) {
-        if (position != 0) {
-//            checkPosition(position - 1);
-        } else {
-            if (size == 0) {
-                throw new IllegalArgumentException("List is empty!");
-            }
-        }
+        checkGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
-        Iterator<T> iterator = this.iterator();
-        T result =
-//                iterator.next()
-                null;
-
-        for (int i = 0; i < position; i++) {
-            if (iterator.hasNext()) {
-                result = iterator.next();
-            }
-        }
-
-        return result;
+        return SelfMadeLinkedList.getDataAt(this, position);
     }
 
     @Override
     public void setDataAt(int position, T data) {
-        if (position != 0) {
-//            checkPosition(position - 1);
-        } else {
-            if (size == 0) {
-                throw new IllegalArgumentException("List is empty!");
+        checkGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+
+        Entry<T> first = getFirst();
+        if (first != null) {
+            Entry<T> target = first;
+            for (int i = 0; i < position; i++) {
+                target = target.next;
             }
-        }
 
-        Entry<T> target = getFirst();
-        for (int i = 0; i < position - 1; i++) {
-            target = target.next;
+            target.data = data;
         }
-
-        target.data = data;
     }
 
     @Override
@@ -185,6 +176,9 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
             @Override
             public T next() {
+                if (current == null) {
+                    throw new NoSuchElementException();
+                }
                 T result = current.data;
                 current = current.next;
                 return result;

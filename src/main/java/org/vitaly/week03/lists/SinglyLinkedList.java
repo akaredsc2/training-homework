@@ -1,6 +1,7 @@
 package org.vitaly.week03.lists;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by vitaly on 2017-02-14.
@@ -25,8 +26,8 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void insertAt(int position, T data) {
-        checkGreaterThanOrEqualsTo(position, 0, "Position is less than zero!");
-        checkLessThan(position, size + 1, "Position is greater than list size!");
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size + 1, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (position == 0) {
             insertFirst(data);
@@ -56,8 +57,8 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void removeAt(int position) {
-        checkGreaterThanOrEqualsTo(position, 0, "Position is less than zero!");
-        checkLessThan(position, size, "Position is greater than or equals to list size!");
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (position == 0) {
             removeFirst();
@@ -86,27 +87,18 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public T getDataAt(int position) {
-        checkGreaterThanOrEqualsTo(size, 0, "List is empty!");
-        checkGreaterThanOrEqualsTo(position, 0, "Position is less than zero!");
-        checkLessThan(position, size, "Position is greater than or equals to list size!");
+        checkGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
-        Iterator<T> iterator = this.iterator();
-        T result = iterator.next();
-
-        for (int i = 0; i < position; i++) {
-            if (iterator.hasNext()) {
-                result = iterator.next();
-            }
-        }
-
-        return result;
+        return SelfMadeLinkedList.getDataAt(this, position);
     }
 
     @Override
     public void setDataAt(int position, T data) {
-        checkGreaterThanOrEqualsTo(size, 0, "List is empty!");
-        checkGreaterThanOrEqualsTo(position, 0, "Position is less than zero!");
-        checkLessThan(position, size, "Position is greater than or equals to list size!");
+        checkGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
+        checkGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
+        checkLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
 
         if (first != null) {
             Entry<T> target = first;
@@ -130,6 +122,9 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
             @Override
             public T next() {
+                if (current == null) {
+                    throw new NoSuchElementException();
+                }
                 T result = current.data;
                 current = current.next;
                 return result;
