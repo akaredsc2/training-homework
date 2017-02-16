@@ -7,7 +7,7 @@ import static java.lang.Math.*;
 /**
  * Created by vitaly on 2017-02-14.
  */
-public class Parallelogram extends Shape {
+public class Parallelogram implements Shape {
     private final double firstSide;
     private final double secondSide;
     private final double angle;

@@ -6,7 +6,7 @@ import static java.lang.Double.isNaN;
 /**
  * Created by vitaly on 2017-02-14.
  */
-public class Trapezium extends Shape {
+public class Trapezium implements Shape {
     private final double bottomSide;
     private final double topSide;
     private final double height;

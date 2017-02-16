@@ -5,7 +5,7 @@ import static java.lang.Math.PI;
 /**
  * Created by vitaly on 2017-02-14.
  */
-public class Ring extends Shape {
+public class Ring implements Shape {
     private final double radius;
 
     private Ring(double radius) {

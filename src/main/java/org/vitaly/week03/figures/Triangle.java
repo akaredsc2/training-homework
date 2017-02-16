@@ -5,9 +5,10 @@ import static java.lang.Double.isNaN;
 import static java.lang.Math.sqrt;
 
 /**
- * Created by vitaly on 2017-02-14.
+ * Triangle objects
+ * @author vitaly
  */
-public class Triangle extends Shape {
+public class Triangle implements Shape {
     private final double[] sides;
 
     private Triangle(double firstSide, double secondSide, double thirdSide) {
@@ -33,13 +34,13 @@ public class Triangle extends Shape {
     }
 
     public static Triangle newTriangle(double firstSide, double secondSide, double thirdSide) {
-        if (isNaN(firstSide) || isNaN(secondSide) || isNaN(thirdSide)) {
+        if (hasNaNSide(firstSide, secondSide, thirdSide)) {
             throw new IllegalArgumentException("One of triangle sides is not a number!");
         }
-        if (isInfinite(firstSide) || isInfinite(secondSide) || isInfinite(thirdSide)) {
+        if (hasInfiniteSide(firstSide, secondSide, thirdSide)) {
             throw new IllegalArgumentException("One of triangle sides is infinite!");
         }
-        if (firstSide < 0 || secondSide < 0 || thirdSide < 0) {
+        if (hasNegativeSide(firstSide, secondSide, thirdSide)) {
             throw new IllegalArgumentException("One of triangle sides is less than zero!");
         }
         if (!isTriangleInequalityCorrect(firstSide, secondSide, thirdSide)) {
@@ -48,6 +49,40 @@ public class Triangle extends Shape {
         return new Triangle(firstSide, secondSide, thirdSide);
     }
 
+    private static boolean hasNaNSide(double... sides) {
+        for (double side : sides) {
+            if (isNaN(side)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasInfiniteSide(double... sides) {
+        for (double side : sides) {
+            if (isInfinite(side)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasNegativeSide(double... sides) {
+        for (double side : sides) {
+            if (side < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if for given sides the triangle inequality
+     * @param firstSide
+     * @param secondSide
+     * @param thirdSide
+     * @return
+     */
     public static boolean isTriangleInequalityCorrect(double firstSide, double secondSide, double thirdSide) {
         return firstSide + secondSide >= thirdSide
                 && firstSide + thirdSide >= secondSide
