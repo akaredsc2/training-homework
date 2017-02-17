@@ -3,6 +3,7 @@ package org.vitaly.week03.lists;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
@@ -247,5 +248,21 @@ public class DoublyLinkedListTest {
         assertEquals(10, iterator.next().intValue());
         assertEquals(20, iterator.next().intValue());
         assertEquals(30, iterator.next().intValue());
+    }
+
+
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void testConcurrentModification() throws Exception {
+        list.insertFirst(50);
+        list.insertFirst(20);
+        list.insertFirst(30);
+
+        Iterator<Integer> iterator = list.iterator();
+
+        iterator.next();
+        iterator.next();
+        list.insertFirst(40);
+        iterator.next();
     }
 }

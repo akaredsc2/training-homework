@@ -1,5 +1,6 @@
 package org.vitaly.week03.lists;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -113,6 +114,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             Entry<T> current = SinglyLinkedList.this.first;
+            int size = SinglyLinkedList.this.size;
 
             @Override
             public boolean hasNext() {
@@ -121,6 +123,9 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
             @Override
             public T next() {
+                if (SinglyLinkedList.this.getSize() != size) {
+                    throw new ConcurrentModificationException();
+                }
                 if (current == null) {
                     throw new NoSuchElementException();
                 }
@@ -132,7 +137,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     }
 
     private static class Entry<T> {
-        private  Entry<T> next;
+        private Entry<T> next;
         private T data;
 
         public Entry(Entry<T> next, T data) {

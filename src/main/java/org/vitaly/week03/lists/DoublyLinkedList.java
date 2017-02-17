@@ -1,5 +1,6 @@
 package org.vitaly.week03.lists;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -170,6 +171,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             DoublyLinkedList.Entry<T> current = DoublyLinkedList.this.getFirst();
+            int size = DoublyLinkedList.this.size;
 
             @Override
             public boolean hasNext() {
@@ -178,6 +180,9 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
             @Override
             public T next() {
+                if (DoublyLinkedList.this.getSize() != size) {
+                    throw new ConcurrentModificationException();
+                }
                 if (current == null) {
                     throw new NoSuchElementException();
                 }

@@ -3,6 +3,8 @@ package org.vitaly.week03.lists;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.charset.CoderMalfunctionError;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
@@ -225,5 +227,19 @@ public class SinglyLinkedListTest {
         iterator = list.iterator();
         assertEquals(20, iterator.next().intValue());
         assertEquals(10, iterator.next().intValue());
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void testConcurrentModification() throws Exception {
+        list.insertFirst(10);
+        list.insertFirst(20);
+        list.insertFirst(30);
+
+        Iterator<Integer> iterator = list.iterator();
+
+        iterator.next();
+        iterator.next();
+        list.insertFirst(40);
+        iterator.next();
     }
 }
