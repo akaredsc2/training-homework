@@ -14,9 +14,10 @@ public class NumberTest {
     public void createNumber() throws Exception {
         Number normalNumber = Number.createNumber(BigInteger.valueOf(10));
         assertEquals(BigInteger.TEN, normalNumber.getValue());
-
-        Number nullNumber = Number.createNumber(null);
-        assertEquals(BigInteger.ZERO, nullNumber.getValue());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void createNumberWithNull() throws Exception {
+        Number.createNumber(null);
+    }
 }

@@ -109,11 +109,9 @@ public class SimpleFractionTest {
         assertEquals(TEN, simpleFraction.getDenominator().getValue());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void createSimpleFractionWithNull() throws Exception {
-        SimpleFraction fraction = createSimpleFraction(null, null);
-        assertEquals(ZERO, fraction.getNumerator().getValue());
-        assertEquals(ONE, fraction.getDenominator().getValue());
+        createSimpleFraction(null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)

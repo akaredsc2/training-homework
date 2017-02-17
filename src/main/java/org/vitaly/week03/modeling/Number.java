@@ -18,7 +18,7 @@ public class Number {
 
     public static Number createNumber(BigInteger value) {
         if (value == null) {
-            return new Number(BigInteger.ZERO);
+            throw new IllegalArgumentException("No value supplied!");
         }
         return new Number(value);
     }

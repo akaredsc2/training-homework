@@ -7,15 +7,19 @@ import java.util.*;
  * Created by vitaly on 17.02.17.
  */
 public class MarkBook {
-    private Map<Semester, List<MarkBookEntry>> marks;
+    private EnumMap<Semester, List<MarkBookEntry>> marks;
     private String studentName;
 
     public MarkBook(String studentName) {
         this.studentName = studentName;
-        this.marks = new HashMap<>();
+        this.marks = new EnumMap<>(Semester.class);
         for (Semester s : Semester.values()) {
             marks.put(s, new LinkedList<>());
         }
+    }
+
+    public String getStudentName() {
+        return studentName;
     }
 
     public List<MarkBookEntry> getMarks(Semester semester) {
@@ -75,8 +79,12 @@ public class MarkBook {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
 
             MarkBookEntry that = (MarkBookEntry) o;
 

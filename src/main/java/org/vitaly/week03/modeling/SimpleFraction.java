@@ -72,18 +72,16 @@ public class SimpleFraction {
     }
 
     public static SimpleFraction createSimpleFraction(Number numerator, Number denominator) {
-        Number notNullNumerator = numerator;
         if (numerator == null) {
-            notNullNumerator = Number.createNumber(BigInteger.ZERO);
+            throw new IllegalArgumentException("No numerator supplied!");
         }
-        Number notNullDenominator = denominator;
         if (denominator == null) {
-            notNullDenominator = Number.createNumber(BigInteger.ONE);
+            throw new IllegalArgumentException("No denominator supplied!");
         }
-        if (notNullDenominator.getValue().equals(BigInteger.ZERO)) {
+        if (denominator.getValue().equals(BigInteger.ZERO)) {
             throw new IllegalArgumentException("Denominator equals zero!");
         }
-        return new SimpleFraction(notNullNumerator, notNullDenominator);
+        return new SimpleFraction(numerator, denominator);
     }
 
     @Override
