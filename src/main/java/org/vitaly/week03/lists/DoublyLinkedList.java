@@ -180,12 +180,10 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
             @Override
             public T next() {
-                if (DoublyLinkedList.this.getSize() != size) {
+                if (DoublyLinkedList.this.getSize() != size)
                     throw new ConcurrentModificationException();
-                }
-                if (current == null) {
+                if (current == null)
                     throw new NoSuchElementException();
-                }
                 T result = current.data;
                 current = current.next;
                 return result;

@@ -7,13 +7,18 @@ import java.util.List;
  * Created by vitaly on 2017-02-19.
  */
 public class Checker {
+    private Checker() {
+    }
+
     public static <T> void checkList(List<T> list) {
-        if (list == null) throw new IllegalArgumentException("List must not be null!");
+        if (list == null)
+            throw new IllegalArgumentException("List must not be null!");
     }
 
     public static <T> void checkArguments(List<T> list, Comparator<? super T> comparator) {
         checkList(list);
-        if (comparator == null) throw new IllegalArgumentException("Comparator must not be null!");
+        if (comparator == null)
+            throw new IllegalArgumentException("Comparator must not be null!");
     }
 
     public static <T> void checkArguments(List<T> list, int lowerBound, int higherBound,
