@@ -1,6 +1,7 @@
 package org.vitaly.week03.figures;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.lang.Math.*;
@@ -9,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by vitaly on 2017-02-14.
  */
+
+@Ignore(value = "Homework 2 passed")
 public class ShapeTest {
     public static final double PRECISION = 0.0001;
     public static final double RING_AREA = PI;

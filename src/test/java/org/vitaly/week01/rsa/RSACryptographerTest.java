@@ -1,5 +1,6 @@
 package org.vitaly.week01.rsa;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -9,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.vitaly.week01.rsa.RSACryptographer.*;
 
+@Ignore(value = "Homework 1 passed")
 public class RSACryptographerTest {
     private static final BigInteger FIRST_PRIME = new BigInteger(
             "139353002759250767128760847340591964619700789910313139616204653696735957730454772417668221835180864698" +

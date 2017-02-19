@@ -1,5 +1,6 @@
 package org.vitaly.week01.bit;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,6 +9,8 @@ import static org.vitaly.week01.bit.BitwiseAlgorithms.*;
 /**
  * Created by vitaly on 2017-02-05.
  */
+
+@Ignore(value = "Homework 1 passed")
 public class BitwiseAlgorithmsTest {
     @Test
     public void testCalculateGCD() throws Exception {

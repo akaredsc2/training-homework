@@ -4,7 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.vitaly.util.Checker.*;
+import static org.vitaly.week03.util.Checker.*;
 
 /**
  * Created by vitaly on 2017-02-14.

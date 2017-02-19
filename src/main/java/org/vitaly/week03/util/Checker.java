@@ -1,4 +1,4 @@
-package org.vitaly.util;
+package org.vitaly.week03.util;
 
 /**
  * Created by vitaly on 2017-02-16.

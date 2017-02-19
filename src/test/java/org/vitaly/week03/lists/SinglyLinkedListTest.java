@@ -1,6 +1,7 @@
 package org.vitaly.week03.lists;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.charset.CoderMalfunctionError;
@@ -12,6 +13,8 @@ import static org.junit.Assert.*;
 /**
  * Created by vitaly on 2017-02-14.
  */
+
+@Ignore(value = "Homework 2 passed")
 public class SinglyLinkedListTest {
     private SinglyLinkedList<Integer> list;
 
