@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.nio.charset.CoderMalfunctionError;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 

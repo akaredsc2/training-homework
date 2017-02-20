@@ -3,7 +3,7 @@ package org.vitaly.week03.inner;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by vitaly on 17.02.17.

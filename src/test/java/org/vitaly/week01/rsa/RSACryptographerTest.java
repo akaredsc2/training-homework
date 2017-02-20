@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.vitaly.week01.rsa.RSACryptographer.*;
 
 @Ignore(value = "Homework 1 passed")

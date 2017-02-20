@@ -1,7 +1,6 @@
 package org.vitaly.week04.merge;
 
 import org.junit.Test;
-import org.vitaly.week04.merge.Merger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -9,9 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by vitaly on 2017-02-19.
