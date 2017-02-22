@@ -1,4 +1,4 @@
-package org.vitaly.week04.priorityQueue;
+package org.vitaly.week04.priority;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -100,5 +100,20 @@ public class PriorityQueueTest {
         priorityQueue = new PriorityQueue<>(Integer::compareTo);
 
         priorityQueue.pop();
+    }
+
+    @Test
+    public void testEnsureCapacity() throws Exception {
+        priorityQueue.insert(40);
+        priorityQueue.insert(50);
+        priorityQueue.insert(60);
+        priorityQueue.insert(70);
+        priorityQueue.insert(80);
+        priorityQueue.insert(90);
+
+        int actual = priorityQueue.getArraySize();
+
+        int expected = 14;
+        assertThat(actual, equalTo(expected));
     }
 }

@@ -1,4 +1,4 @@
-package org.vitaly.week04.priorityQueue;
+package org.vitaly.week04.priority;
 
 import java.util.Comparator;
 
@@ -19,6 +19,10 @@ public class PriorityQueue<T> {
         this.elements = (T[]) new Object[INITIAL_CAPACITY];
         this.comparator = comparator;
         this.heapSize = 0;
+    }
+
+    public int getArraySize() {
+        return elements.length;
     }
 
     public int getHeapSize() {
@@ -76,17 +80,29 @@ public class PriorityQueue<T> {
             throw new IllegalArgumentException("New key is smaller than current key");
         }
         elements[index] = element;
-        while (index > 0 && comparator.compare(elements[getParentIndex(index)], elements[index]) < 0) {
-            swap(elements, index, getParentIndex(index));
-            index = getParentIndex(index);
+        int localIndex = index;
+        while (localIndex > 0 && comparator.compare(elements[getParentIndex(localIndex)], elements[localIndex]) < 0) {
+            swap(elements, localIndex, getParentIndex(localIndex));
+            localIndex = getParentIndex(index);
         }
     }
 
     public void insert(T element) {
         checkElement(element);
+        ensureCapacity(heapSize);
+
         elements[heapSize] = element;
         increaseKey(heapSize, element);
         heapSize += 1;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void ensureCapacity(int currentHeapSize) {
+        if (currentHeapSize == elements.length) {
+            T[] newArray = (T[]) new Object[elements.length << 1];
+            System.arraycopy(elements, 0, newArray, 0, elements.length);
+            elements = newArray;
+        }
     }
 
     private int getParentIndex(int index) {
