@@ -6,8 +6,8 @@ import java.util.List;
 
 import static org.vitaly.week04.quicksort.Sorter.doQuickSort;
 import static org.vitaly.week04.quicksort.Sorter.isSorted;
-import static org.vitaly.week04.util.Checker.checkArguments;
-import static org.vitaly.week04.util.Checker.checkList;
+import static org.vitaly.week04.util.ListChecker.checkArguments;
+import static org.vitaly.week04.util.ListChecker.checkList;
 
 /**
  * Created by vitaly on 2017-02-19.

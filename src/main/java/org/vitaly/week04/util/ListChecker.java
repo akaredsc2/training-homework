@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * Created by vitaly on 2017-02-19.
  */
-public class Checker {
-    private Checker() {
+public class ListChecker {
+    private ListChecker() {
     }
 
     public static <T> void checkList(List<T> list) {

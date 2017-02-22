@@ -2,17 +2,21 @@ package org.vitaly.week04.priorityQueue;
 
 import java.util.Comparator;
 
+import static org.vitaly.week04.util.QueueChecker.checkElement;
+import static org.vitaly.week04.util.QueueChecker.checkIndex;
+
 /**
  * Created by vitaly on 20.02.17.
  */
 public class PriorityQueue<T> {
+    private static final int INITIAL_CAPACITY = 7;
     private T[] elements;
-    private Comparator<T> comparator;
+    private Comparator<? super T> comparator;
     private int heapSize;
 
     @SuppressWarnings("unchecked")
-    public PriorityQueue(Comparator<T> comparator) {
-        this.elements = (T[]) new Object[100];
+    public PriorityQueue(Comparator<? super T> comparator) {
+        this.elements = (T[]) new Object[INITIAL_CAPACITY];
         this.comparator = comparator;
         this.heapSize = 0;
     }
@@ -22,6 +26,8 @@ public class PriorityQueue<T> {
     }
 
     public void maintainHeapProperty(int index) {
+        checkIndex(index, heapSize);
+
         int leftIndex = getLeftChildIndex(index);
         int rightIndex = getRightChildIndex(index);
         int largestIndex = index;
@@ -38,6 +44,10 @@ public class PriorityQueue<T> {
     }
 
     private void swap(T[] array, int firstPosition, int secondPosition) {
+        checkElement(array);
+        checkIndex(firstPosition, array.length);
+        checkIndex(secondPosition, array.length);
+
         T temp = array[firstPosition];
         array[firstPosition] = array[secondPosition];
         array[secondPosition] = temp;
@@ -59,6 +69,9 @@ public class PriorityQueue<T> {
     }
 
     public void increaseKey(int index, T element) {
+        checkIndex(index);
+        checkElement(element);
+
         if (comparator.compare(element, elements[index]) < 0) {
             throw new IllegalArgumentException("New key is smaller than current key");
         }
@@ -70,20 +83,24 @@ public class PriorityQueue<T> {
     }
 
     public void insert(T element) {
+        checkElement(element);
         elements[heapSize] = element;
         increaseKey(heapSize, element);
         heapSize += 1;
     }
 
     private int getParentIndex(int index) {
+        checkIndex(index);
         return index >> 1;
     }
 
     private int getLeftChildIndex(int index) {
+        checkIndex(index);
         return index << 1;
     }
 
     private int getRightChildIndex(int index) {
+        checkIndex(index);
         return index << 1 | 1;
     }
 }

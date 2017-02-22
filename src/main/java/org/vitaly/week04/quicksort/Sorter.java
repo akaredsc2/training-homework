@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Collections.swap;
-import static org.vitaly.week04.util.Checker.checkArguments;
+import static org.vitaly.week04.util.ListChecker.checkArguments;
 
 /**
  * Created by vitaly on 2017-02-19.
