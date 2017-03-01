@@ -14,10 +14,6 @@ public class Movie {
         this.locale = new Locale(language);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getSoundtrackLanguage() {
         return locale.getDisplayLanguage();
     }
