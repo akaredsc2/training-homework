@@ -1,7 +1,7 @@
 package org.vitaly.week05.observer;
 
-import static java.util.Objects.requireNonNull;
 import static org.vitaly.util.InputChecker.TITLE_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
  * Created by vitaly on 2017-03-02.

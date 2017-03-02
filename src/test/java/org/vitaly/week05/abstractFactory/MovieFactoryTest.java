@@ -18,24 +18,13 @@ public class MovieFactoryTest {
     private String language = "en";
     private String movieName = "Mad Max Fury Road";
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullMovieNameShouldThrowException() throws Exception {
-        movieFactory.newMovie(null, language);
-    }
+    @Test
+    public void movieNameIsCorrectlySet() throws Exception {
+        movie = movieFactory.newMovie(movieName, language);
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullLanguageNameShouldThrowException() throws Exception {
-        movieFactory.newMovie(movieName, null);
-    }
+        String actualMovieName = movie.getName();
 
-    @Test(expected = IllegalArgumentException.class)
-    public void emptyMovieNameShouldThrowException() throws Exception {
-        movieFactory.newMovie("", language);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void emptyLanguageNameShouldThrowException() throws Exception {
-        movieFactory.newMovie(movieName, "");
+        assertThat(actualMovieName, equalTo(movieName));
     }
 
     @Test
@@ -61,5 +50,25 @@ public class MovieFactoryTest {
 
         String expectedOtherSubtitlesLanguage = otherLanguageMovie.getSubtitlesLanguage();
         assertThat(actualSubtitlesLanguage, not(equalTo(expectedOtherSubtitlesLanguage)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void nullMovieNameShouldThrowException() throws Exception {
+        movieFactory.newMovie(null, language);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void nullLanguageNameShouldThrowException() throws Exception {
+        movieFactory.newMovie(movieName, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyMovieNameShouldThrowException() throws Exception {
+        movieFactory.newMovie("", language);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyLanguageNameShouldThrowException() throws Exception {
+        movieFactory.newMovie(movieName, "");
     }
 }

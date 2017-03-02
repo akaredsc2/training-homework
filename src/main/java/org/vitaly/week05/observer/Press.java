@@ -16,5 +16,9 @@ public abstract class Press {
         return name;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public abstract PaperQuality getPaperQuality();
 }
