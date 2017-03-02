@@ -1,5 +1,7 @@
 package org.vitaly.week03.modeling;
 
+import org.vitaly.util.InputChecker;
+
 import java.math.BigInteger;
 
 /**
@@ -17,9 +19,7 @@ public class Number {
     }
 
     public static Number createNumber(BigInteger value) {
-        if (value == null) {
-            throw new IllegalArgumentException("No value supplied!");
-        }
+        InputChecker.requireNonNull(value, "No value supplied!");
         return new Number(value);
     }
 }

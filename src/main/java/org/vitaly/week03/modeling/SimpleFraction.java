@@ -1,5 +1,7 @@
 package org.vitaly.week03.modeling;
 
+import org.vitaly.util.InputChecker;
+
 import java.math.BigInteger;
 
 /**
@@ -72,12 +74,8 @@ public class SimpleFraction {
     }
 
     public static SimpleFraction createSimpleFraction(Number numerator, Number denominator) {
-        if (numerator == null) {
-            throw new IllegalArgumentException("No numerator supplied!");
-        }
-        if (denominator == null) {
-            throw new IllegalArgumentException("No denominator supplied!");
-        }
+        InputChecker.requireNonNull(numerator, "No numerator supplied!");
+        InputChecker.requireNonNull(denominator, "No denominator supplied!");
         if (denominator.getValue().equals(BigInteger.ZERO)) {
             throw new IllegalArgumentException("Denominator equals zero!");
         }

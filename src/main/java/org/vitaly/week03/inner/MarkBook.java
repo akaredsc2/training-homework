@@ -91,7 +91,6 @@ public class MarkBook {
             MarkBookEntry that = (MarkBookEntry) o;
 
             return subjectName.equals(that.subjectName);
-
         }
 
         @Override

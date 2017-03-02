@@ -1,6 +1,5 @@
 package org.vitaly.week01.rsa;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -8,19 +7,18 @@ import java.math.BigInteger;
 import static org.junit.Assert.*;
 import static org.vitaly.week01.rsa.RSACryptographer.*;
 
-@Ignore(value = "Homework 1 passed")
 public class RSACryptographerTest {
-    private static final BigInteger FIRST_PRIME = new BigInteger(
+    private final BigInteger FIRST_PRIME = new BigInteger(
             "139353002759250767128760847340591964619700789910313139616204653696735957730454772417668221835180864698" +
                     "7991123365587572755938042844749530833833559020428338857936899016690436658749986686619378660286" +
                     "1156170472358283398091512089189142241721979703885705393405393281597923819511951113853955634732" +
                     "1964614536619384389");
-    private static final BigInteger SECOND_PRIME = new BigInteger(
+    private final BigInteger SECOND_PRIME = new BigInteger(
             "1348933785989343165539482220978725415583672654497" +
                     "8589709806089037182055218317075899302835186773658172875758036114315610119468456187940043549091" +
                     "4228326976483801900163093407525531661797611842682818325058305797160401145080806519362953322187" +
                     "382144173259793109672184705801623015870343419192307869515678544124558603");
-    private static final BigInteger EXPECTED_EULER_FUNCTION = new BigInteger(
+    private final BigInteger EXPECTED_EULER_FUNCTION = new BigInteger(
             "187977973601019521944422306571413177136769476303919143595318156987982231894654077959006184540904969167" +
                     "5910888007590002073005997503205238774841377006819448536187010228161122668516002359675839953044" +
                     "1862918550008901823833044357270992952023150995871079746852711007625039228293176043708324271312" +
@@ -28,7 +26,8 @@ public class RSACryptographerTest {
                     "5358842581994784358147366592939610401911691501270126533008100017341186152071272446003409515291" +
                     "3876771076451409472081838382018585654191838527822401464839787636366849787043472321206657654655" +
                     "232011377735310814163624275530359397469905576");
-    private static final Pair PRIMES = new Pair(FIRST_PRIME, SECOND_PRIME);
+    private final Pair PRIMES = new Pair(FIRST_PRIME, SECOND_PRIME);
+    private KeyPair keyPair = generateKeyPair(PRIMES);
 
     @Test
     public void testGetPrimesPair() throws Exception {
@@ -59,8 +58,6 @@ public class RSACryptographerTest {
     public void testKeyPairGenerationWithGivenPrimes() throws Exception {
         BigInteger eulerFunction = getEulerFunction(PRIMES);
 
-        KeyPair keyPair = generateKeyPair(PRIMES);
-
         BigInteger publicExponent = keyPair.getPublicKey().getExponent();
         BigInteger privateExponent = keyPair.getPrivateKey().getExponent();
 
@@ -89,7 +86,6 @@ public class RSACryptographerTest {
 
     @Test
     public void testCipherDecipherNumber() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         BigInteger information = new BigInteger("12345678987654321");
 
         assertEquals(doDecipherAsBigInteger(
@@ -98,7 +94,6 @@ public class RSACryptographerTest {
 
     @Test
     public void testCipherDecipherByteArray() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         byte[] information = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         assertArrayEquals(doDecipherAsByteArray(
@@ -107,7 +102,6 @@ public class RSACryptographerTest {
 
     @Test
     public void testCipherDecipherByteArrays() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         byte[][] initialInformation = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
         BigInteger[] cipheredInformation = doCipher(initialInformation, keyPair.getPublicKey());
@@ -120,7 +114,6 @@ public class RSACryptographerTest {
 
     @Test
     public void testCipherDecipherString() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         String information = "Well beyond your window " +
                 "There is so much more ";
         BigInteger[] cipheredInformation = doCipher(information, keyPair.getPublicKey(), 4);
@@ -130,7 +123,6 @@ public class RSACryptographerTest {
 
     @Test
     public void testCipherDecipherStringWithBigChunkSize() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         String information = "Even every prison " +
                 "Has an open door";
         BigInteger[] cipheredInformation = doCipher(information, keyPair.getPublicKey(), 1024);
@@ -140,14 +132,12 @@ public class RSACryptographerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCipherDecipherStringWithZeroChunkSize() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         String information = "Veronika, Saint Veronika";
         doCipher(information, keyPair.getPublicKey(), 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCipherDecipherStringWithGiantChunkSize() throws Exception {
-        KeyPair keyPair = generateKeyPair();
         String information = "Veronika, Saint Veronika";
         doCipher(information, keyPair.getPublicKey(), 1025);
     }

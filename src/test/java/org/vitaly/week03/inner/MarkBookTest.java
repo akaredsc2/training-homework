@@ -1,6 +1,5 @@
 package org.vitaly.week03.inner;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,7 +8,6 @@ import static org.junit.Assert.assertEquals;
  * Created by vitaly on 17.02.17.
  */
 
-@Ignore(value = "Homework 2 passed")
 public class MarkBookTest {
     @Test
     public void testCreateMarkBookEntry() throws Exception {

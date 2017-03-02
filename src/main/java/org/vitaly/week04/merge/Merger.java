@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static org.vitaly.util.InputChecker.requireNonNull;
 import static org.vitaly.week04.quicksort.Sorter.doQuickSort;
 import static org.vitaly.week04.quicksort.Sorter.isSorted;
-import static org.vitaly.week04.util.ListChecker.checkArguments;
-import static org.vitaly.week04.util.ListChecker.checkList;
 
 /**
  * Created by vitaly on 2017-02-19.
@@ -17,8 +16,8 @@ public class Merger {
     }
 
     public static <T> List<T> sortAndMerge(List<T> firstList, List<T> secondList, Comparator<? super T> comparator) {
-        checkList(firstList);
-        checkArguments(secondList, comparator);
+        requireNonNullLists(firstList, secondList);
+        requireNonNull(comparator, "Comparator must not be null!");
 
         if (!isSorted(firstList, comparator)) {
             doQuickSort(firstList, comparator);
@@ -30,8 +29,9 @@ public class Merger {
     }
 
     public static <T> List<T> mergeSorted(List<T> firstList, List<T> secondList, Comparator<? super T> comparator) {
-        checkList(firstList);
-        checkArguments(secondList, comparator);
+        requireNonNullLists(firstList, secondList);
+        requireNonNull(comparator, "Comparator must not be null!");
+
         if (!isSorted(firstList, comparator)) {
             throw new IllegalArgumentException("First list is not sorted!");
         }
@@ -68,8 +68,8 @@ public class Merger {
     }
 
     public static <T> List<T> mergeAndSort(List<T> firstList, List<T> secondList, Comparator<? super T> comparator) {
-        checkList(firstList);
-        checkArguments(secondList, comparator);
+        requireNonNullLists(firstList, secondList);
+        requireNonNull(comparator, "Comparator must not be null!");
 
         List<T> result = mergeUnsorted(firstList, secondList);
         doQuickSort(result, comparator);
@@ -77,8 +77,7 @@ public class Merger {
     }
 
     public static <T> List<T> mergeUnsorted(List<T> firstList, List<T> secondList) {
-        checkList(firstList);
-        checkList(secondList);
+        requireNonNullLists(firstList, secondList);
 
         List<T> result = new ArrayList<>();
         for (T element : firstList) {
@@ -88,5 +87,10 @@ public class Merger {
             result.add(element);
         }
         return result;
+    }
+
+    private static <T> void requireNonNullLists(List<T> firstList, List<T> secondList) {
+        requireNonNull(firstList, "List must not be null!");
+        requireNonNull(secondList, "List must not be null!");
     }
 }

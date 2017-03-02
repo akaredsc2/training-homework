@@ -1,6 +1,5 @@
 package org.vitaly.week03.modeling;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -15,7 +14,6 @@ import static org.vitaly.week03.modeling.SimpleFraction.createSimpleFraction;
  * Created by vitaly on 2017-02-17.
  */
 
-@Ignore(value = "Homework 2 passed")
 public class SimpleFractionTest {
     private static final BigInteger THREE = valueOf(3);
     private static final BigInteger FIVE = valueOf(5);

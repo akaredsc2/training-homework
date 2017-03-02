@@ -1,6 +1,5 @@
 package org.vitaly.week03.figures;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.lang.Double.*;
@@ -12,8 +11,6 @@ import static org.vitaly.week03.figures.ShapeTest.RING_AREA;
 /**
  * Created by vitaly on 2017-02-14.
  */
-
-@Ignore(value = "Homework 2 passed")
 public class RingTest {
     @Test
     public void testZeroRadius() throws Exception {

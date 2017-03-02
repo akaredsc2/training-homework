@@ -1,7 +1,6 @@
 package org.vitaly.week03.lists;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ConcurrentModificationException;
@@ -13,7 +12,6 @@ import static org.junit.Assert.*;
  * Created by vitaly on 15.02.17.
  */
 
-@Ignore(value = "Homework 2 passed")
 public class DoublyLinkedListTest {
     private DoublyLinkedList<Integer> list;
 

@@ -4,7 +4,8 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.vitaly.week03.util.Checker.*;
+import static org.vitaly.util.InputChecker.requireInRange;
+import static org.vitaly.util.InputChecker.requirePositive;
 
 /**
  * Created by vitaly on 2017-02-14.
@@ -26,8 +27,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void insertAt(int position, T data) {
-        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        confirmLessThan(position, size + 1, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        requireInRange(position, 0, size + 1, "Position must be between zero inclusive and list size inclusive!");
 
         if (position == 0) {
             insertFirst(data);
@@ -57,8 +57,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void removeAt(int position) {
-        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        confirmLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        requireInRange(position, 0, size, "Position must be between zero inclusive and list size exclusive!");
 
         if (position == 0) {
             removeFirst();
@@ -87,18 +86,16 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public T getDataAt(int position) {
-        confirmGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
-        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        confirmLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        requirePositive(size, "List is empty!");
+        requireInRange(position, 0, size, "Position must be between zero inclusive and list size exclusive!");
 
         return SelfMadeLinkedList.getDataAt(this, position);
     }
 
     @Override
     public void setDataAt(int position, T data) {
-        confirmGreaterThanOrEqualsTo(size, 0, LIST_IS_EMPTY);
-        confirmGreaterThanOrEqualsTo(position, 0, POSITION_IS_LESS_THAN_ZERO);
-        confirmLessThan(position, size, POSITION_IS_GREATER_THAN_OR_EQUALS_TO_LIST_SIZE);
+        requirePositive(size, "List is empty!");
+        requireInRange(position, 0, size, "Position must be between zero inclusive and list size exclusive!");
 
         if (first != null) {
             Entry<T> target = first;

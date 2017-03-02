@@ -2,8 +2,7 @@ package org.vitaly.week04.priority;
 
 import java.util.Comparator;
 
-import static org.vitaly.week04.util.QueueChecker.checkElement;
-import static org.vitaly.week04.util.QueueChecker.checkIndex;
+import static org.vitaly.util.InputChecker.*;
 
 /**
  * Created by vitaly on 20.02.17.
@@ -30,7 +29,7 @@ public class PriorityQueue<T> {
     }
 
     public void maintainHeapProperty(int index) {
-        checkIndex(index, heapSize);
+        requireInRange(index, 0, heapSize, "Index must be between zero inclusive and heap size exclusive!");
 
         int leftIndex = getLeftChildIndex(index);
         int rightIndex = getRightChildIndex(index);
@@ -48,9 +47,9 @@ public class PriorityQueue<T> {
     }
 
     private void swap(T[] array, int firstPosition, int secondPosition) {
-        checkElement(array);
-        checkIndex(firstPosition, array.length);
-        checkIndex(secondPosition, array.length);
+        requireNonNull(array, "Array must not be null!");
+        requireInRange(firstPosition, 0, array.length, "First position must be between 0 inclusive and heap size exclusive!");
+        requireInRange(secondPosition, 0, array.length, "Second position must be between 0 inclusive and heap size exclusive!");
 
         T temp = array[firstPosition];
         array[firstPosition] = array[secondPosition];
@@ -73,8 +72,8 @@ public class PriorityQueue<T> {
     }
 
     public void increaseKey(int index, T element) {
-        checkIndex(index);
-        checkElement(element);
+        requireNonNull(element, "Element of priority queue must not be null!");
+        requirePositive(index, "Index is less than zero!");
 
         if (comparator.compare(element, elements[index]) < 0) {
             throw new IllegalArgumentException("New key is smaller than current key");
@@ -88,7 +87,8 @@ public class PriorityQueue<T> {
     }
 
     public void insert(T element) {
-        checkElement(element);
+        requireNonNull(element, "Element of priority queue must not be null!");
+
         ensureCapacity(heapSize);
 
         elements[heapSize] = element;
@@ -106,17 +106,17 @@ public class PriorityQueue<T> {
     }
 
     private int getParentIndex(int index) {
-        checkIndex(index);
+        requirePositive(index, "Index is less than zero!");
         return index >> 1;
     }
 
     private int getLeftChildIndex(int index) {
-        checkIndex(index);
+        requirePositive(index, "Index is less than zero!");
         return index << 1;
     }
 
     private int getRightChildIndex(int index) {
-        checkIndex(index);
+        requirePositive(index, "Index is less than zero!");
         return index << 1 | 1;
     }
 }
