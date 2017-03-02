@@ -1,7 +1,15 @@
 package org.vitaly.week05.observer;
 
 /**
- * Created by vitaly on 01.03.17.
+ * Created by vitaly on 2017-03-02.
  */
-public class Magazine implements Printable {
+public class Magazine extends Press {
+    public Magazine(String name, String title) {
+        super(name, title);
+    }
+
+    @Override
+    public PaperQuality getPaperQuality() {
+        return PaperQuality.HIGH;
+    }
 }

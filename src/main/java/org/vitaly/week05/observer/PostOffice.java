@@ -1,7 +1,12 @@
 package org.vitaly.week05.observer;
 
 /**
- * Created by vitaly on 01.03.17.
+ * Created by vitaly on 2017-03-02.
  */
-public class PostOffice {
+public interface PostOffice {
+    void addSubscriber(Subscriber subscriber);
+
+    void removeSubscriber(Subscriber subscriber);
+
+    void receivePress(Press press);
 }

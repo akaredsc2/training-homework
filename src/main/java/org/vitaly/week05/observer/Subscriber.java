@@ -1,24 +1,12 @@
 package org.vitaly.week05.observer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
- * Created by vitaly on 01.03.17.
+ * Created by vitaly on 2017-03-02.
  */
-public class Subscriber implements Observer {
-    private List<Printable> printables;
+public interface Subscriber {
+    void inform(Press newIssue);
 
-    public Subscriber() {
-        this.printables = new ArrayList<>();
-    }
-
-    @Override
-    public void notify(Printable newIssue) {
-        printables.add(newIssue);
-    }
-
-    public List<Printable> getPrintables() {
-        return new ArrayList<>(printables);
-    }
+    Collection<Press> getPressCollection();
 }
