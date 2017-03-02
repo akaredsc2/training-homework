@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static org.vitaly.util.InputChecker.COMPARATOR_MUST_NOT_BE_NULL;
 import static org.vitaly.util.InputChecker.requireNonNull;
 import static org.vitaly.week04.quicksort.Sorter.doQuickSort;
 import static org.vitaly.week04.quicksort.Sorter.isSorted;
@@ -17,7 +18,7 @@ public class Merger {
 
     public static <T> List<T> sortAndMerge(List<T> firstList, List<T> secondList, Comparator<? super T> comparator) {
         requireNonNullLists(firstList, secondList);
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
 
         if (!isSorted(firstList, comparator)) {
             doQuickSort(firstList, comparator);
@@ -30,7 +31,7 @@ public class Merger {
 
     public static <T> List<T> mergeSorted(List<T> firstList, List<T> secondList, Comparator<? super T> comparator) {
         requireNonNullLists(firstList, secondList);
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
 
         if (!isSorted(firstList, comparator)) {
             throw new IllegalArgumentException("First list is not sorted!");
@@ -69,7 +70,7 @@ public class Merger {
 
     public static <T> List<T> mergeAndSort(List<T> firstList, List<T> secondList, Comparator<? super T> comparator) {
         requireNonNullLists(firstList, secondList);
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
 
         List<T> result = mergeUnsorted(firstList, secondList);
         doQuickSort(result, comparator);

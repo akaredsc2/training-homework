@@ -6,6 +6,7 @@ import static java.lang.Math.sqrt;
 
 /**
  * Triangle objects
+ *
  * @author vitaly
  */
 public class Triangle implements Shape {
@@ -78,6 +79,7 @@ public class Triangle implements Shape {
 
     /**
      * Checks if for given sides the triangle inequality
+     *
      * @param firstSide
      * @param secondSide
      * @param thirdSide

@@ -48,8 +48,10 @@ public class PriorityQueue<T> {
 
     private void swap(T[] array, int firstPosition, int secondPosition) {
         requireNonNull(array, "Array must not be null!");
-        requireInRange(firstPosition, 0, array.length, "First position must be between 0 inclusive and heap size exclusive!");
-        requireInRange(secondPosition, 0, array.length, "Second position must be between 0 inclusive and heap size exclusive!");
+        requireInRange(firstPosition, 0, array.length,
+                "First position must be between zero inclusive and heap size exclusive!");
+        requireInRange(secondPosition, 0, array.length,
+                "Second position must be between zero inclusive and heap size exclusive!");
 
         T temp = array[firstPosition];
         array[firstPosition] = array[secondPosition];
@@ -73,7 +75,7 @@ public class PriorityQueue<T> {
 
     public void increaseKey(int index, T element) {
         requireNonNull(element, "Element of priority queue must not be null!");
-        requirePositive(index, "Index is less than zero!");
+        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
 
         if (comparator.compare(element, elements[index]) < 0) {
             throw new IllegalArgumentException("New key is smaller than current key");
@@ -106,17 +108,17 @@ public class PriorityQueue<T> {
     }
 
     private int getParentIndex(int index) {
-        requirePositive(index, "Index is less than zero!");
+        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
         return index >> 1;
     }
 
     private int getLeftChildIndex(int index) {
-        requirePositive(index, "Index is less than zero!");
+        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
         return index << 1;
     }
 
     private int getRightChildIndex(int index) {
-        requirePositive(index, "Index is less than zero!");
+        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
         return index << 1 | 1;
     }
 }

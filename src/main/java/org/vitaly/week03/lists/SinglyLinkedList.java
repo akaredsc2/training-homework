@@ -4,8 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.vitaly.util.InputChecker.requireInRange;
-import static org.vitaly.util.InputChecker.requirePositive;
+import static org.vitaly.util.InputChecker.*;
 
 /**
  * Created by vitaly on 2017-02-14.
@@ -57,7 +56,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void removeAt(int position) {
-        requireInRange(position, 0, size, "Position must be between zero inclusive and list size exclusive!");
+        requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         if (position == 0) {
             removeFirst();
@@ -86,16 +85,16 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public T getDataAt(int position) {
-        requirePositive(size, "List is empty!");
-        requireInRange(position, 0, size, "Position must be between zero inclusive and list size exclusive!");
+        requirePositive(size, LIST_IS_EMPTY);
+        requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         return SelfMadeLinkedList.getDataAt(this, position);
     }
 
     @Override
     public void setDataAt(int position, T data) {
-        requirePositive(size, "List is empty!");
-        requireInRange(position, 0, size, "Position must be between zero inclusive and list size exclusive!");
+        requirePositive(size, LIST_IS_EMPTY);
+        requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         if (first != null) {
             Entry<T> target = first;

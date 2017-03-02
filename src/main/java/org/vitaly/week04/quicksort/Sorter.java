@@ -4,8 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Collections.swap;
-import static org.vitaly.util.InputChecker.requireInRange;
-import static org.vitaly.util.InputChecker.requireNonNull;
+import static org.vitaly.util.InputChecker.*;
 
 /**
  * Created by vitaly on 2017-02-19.
@@ -15,16 +14,16 @@ public class Sorter {
     }
 
     public static <T> void doQuickSort(List<T> list, Comparator<? super T> comparator) {
-        requireNonNull(list, "List must not be null!");
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(list, LIST_MUST_NOT_BE_NULL);
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
 
         doQuickSort(list, 0, list.size() - 1, comparator);
     }
 
     public static <T> void doQuickSort(List<T> list, int lowerBound, int higherBound,
                                        Comparator<? super T> comparator) {
-        requireNonNull(list, "List must not be null!");
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(list, LIST_MUST_NOT_BE_NULL);
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
 
         if (lowerBound < higherBound) {
             int partitionIndex = doPartition(list, lowerBound, higherBound, comparator);
@@ -35,8 +34,8 @@ public class Sorter {
 
     public static <T> int doPartition(List<T> list, int lowerBound, int higherBound,
                                       Comparator<? super T> comparator) {
-        requireNonNull(list, "List must not be null!");
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(list, LIST_MUST_NOT_BE_NULL);
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
         int listSize = list.size();
         requireInRange(lowerBound, 0, listSize, "Lower bound must be between zero inclusive and list size exclusive!");
         requireInRange(higherBound, 0, listSize, "Upper bound must be between zero inclusive and list size exclusive!");
@@ -57,8 +56,8 @@ public class Sorter {
     }
 
     public static <T> boolean isSorted(List<T> list, Comparator<? super T> comparator) {
-        requireNonNull(list, "List must not be null!");
-        requireNonNull(comparator, "Comparator must not be null!");
+        requireNonNull(list, LIST_MUST_NOT_BE_NULL);
+        requireNonNull(comparator, COMPARATOR_MUST_NOT_BE_NULL);
 
         for (int i = 0; i < list.size() - 1; i++) {
             if (comparator.compare(list.get(i), list.get(i + 1)) > 0) {
