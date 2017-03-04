@@ -8,24 +8,9 @@ import static org.junit.Assert.*;
 import static org.vitaly.week01.rsa.RSACryptographer.*;
 
 public class RSACryptographerTest {
-    private final BigInteger FIRST_PRIME = new BigInteger(
-            "139353002759250767128760847340591964619700789910313139616204653696735957730454772417668221835180864698" +
-                    "7991123365587572755938042844749530833833559020428338857936899016690436658749986686619378660286" +
-                    "1156170472358283398091512089189142241721979703885705393405393281597923819511951113853955634732" +
-                    "1964614536619384389");
-    private final BigInteger SECOND_PRIME = new BigInteger(
-            "1348933785989343165539482220978725415583672654497" +
-                    "8589709806089037182055218317075899302835186773658172875758036114315610119468456187940043549091" +
-                    "4228326976483801900163093407525531661797611842682818325058305797160401145080806519362953322187" +
-                    "382144173259793109672184705801623015870343419192307869515678544124558603");
-    private final BigInteger EXPECTED_EULER_FUNCTION = new BigInteger(
-            "187977973601019521944422306571413177136769476303919143595318156987982231894654077959006184540904969167" +
-                    "5910888007590002073005997503205238774841377006819448536187010228161122668516002359675839953044" +
-                    "1862918550008901823833044357270992952023150995871079746852711007625039228293176043708324271312" +
-                    "2902338389851599022540033247803071090443381918158805034612760976111462458673606148975239220275" +
-                    "5358842581994784358147366592939610401911691501270126533008100017341186152071272446003409515291" +
-                    "3876771076451409472081838382018585654191838527822401464839787636366849787043472321206657654655" +
-                    "232011377735310814163624275530359397469905576");
+    private final BigInteger FIRST_PRIME = new BigInteger("13665292845261266843");
+    private final BigInteger SECOND_PRIME = new BigInteger("12454972287342439433");
+    private final BigInteger EXPECTED_EULER_FUNCTION = new BigInteger("170200843686147992911666939762974913744");
     private final Pair PRIMES = new Pair(FIRST_PRIME, SECOND_PRIME);
     private KeyPair keyPair = generateKeyPair(PRIMES);
 
@@ -125,7 +110,7 @@ public class RSACryptographerTest {
     public void testCipherDecipherStringWithBigChunkSize() throws Exception {
         String information = "Even every prison " +
                 "Has an open door";
-        BigInteger[] cipheredInformation = doCipher(information, keyPair.getPublicKey(), 1024);
+        BigInteger[] cipheredInformation = doCipher(information, keyPair.getPublicKey(), information.length() / 2 - 1);
 
         assertEquals(information, doDecipherAsString(cipheredInformation, keyPair.getPrivateKey()));
     }
@@ -139,6 +124,6 @@ public class RSACryptographerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCipherDecipherStringWithGiantChunkSize() throws Exception {
         String information = "Veronika, Saint Veronika";
-        doCipher(information, keyPair.getPublicKey(), 1025);
+        doCipher(information, keyPair.getPublicKey(), RSACryptographer.BIT_LENGTH + 1);
     }
 }

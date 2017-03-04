@@ -16,7 +16,7 @@ public class RSACryptographer {
     /**
      * Size for generation of keys using RSA algorithms
      */
-    public static final int BIT_LENGTH = 1024;
+    public static final int BIT_LENGTH = 128;
 
     /**
      * A measure of the uncertainty that ensures that random numbers for key generation will be
@@ -128,7 +128,7 @@ public class RSACryptographer {
      * @throws IllegalArgumentException chunk size for string division is less than 0 or greater than bit length of keys
      */
     public static BigInteger[] doCipher(String information, Key publicKey, int chunkSize) {
-        if (chunkSize < 1 || chunkSize > BIT_LENGTH) {
+        if (chunkSize < 1 || chunkSize > BIT_LENGTH || chunkSize >= information.length() / 2) {
             throw new IllegalArgumentException("Chunk size is less than one!");
         }
 
