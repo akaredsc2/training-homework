@@ -2,24 +2,26 @@ package org.vitaly.week05.factoryMethod;
 
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 /**
- * Created by vitaly on 01.03.17.
+ * Created by vitaly on 2017-03-04.
  */
 public class TetrisFigureTest {
     @Test
-    public void gettingDifferentTetrisFigures() throws Exception {
-        Set<TetrisFigure> tetrisFigureSet = new HashSet<>();
+    public void nextFigureIsNotNullAndIsInTetrisFigureEnum() throws Exception {
+        TetrisFigure tetrisFigure = TetrisFigure.nextFigure();
 
-        for (int i = 0; i < 1000; i++) {
-            tetrisFigureSet.add(TetrisFigure.nextTetrisFigure());
+        String actualForm = tetrisFigure.getForm();
+
+        TetrisFigure[] values = TetrisFigure.values();
+        String[] expectedForms = new String[values.length];
+        for (int i = 0; i < expectedForms.length; i++) {
+            expectedForms[i] = values[i].getForm();
         }
-
-        assertThat(tetrisFigureSet, containsInAnyOrder(TetrisFigure.values()));
+        assertThat(actualForm, allOf(
+                notNullValue(),
+                isOneOf(expectedForms)));
     }
 }
