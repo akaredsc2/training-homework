@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.vitaly.util.InputChecker.COMPARATOR_MUST_NOT_BE_NULL;
-import static org.vitaly.util.InputChecker.requireNonNull;
 import static org.vitaly.homework03.quicksort.Sorter.doQuickSort;
 import static org.vitaly.homework03.quicksort.Sorter.isSorted;
+import static org.vitaly.util.InputChecker.COMPARATOR_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
  * Created by vitaly on 2017-02-19.

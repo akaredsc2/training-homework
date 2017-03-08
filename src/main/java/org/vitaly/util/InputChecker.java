@@ -12,6 +12,7 @@ public class InputChecker {
     public static final String INDEX_IS_LESS_THAN_ZERO = "Index is less than zero!";
     public static final String TITLE_MUST_NOT_BE_NULL = "Title must not be null!";
     public static final String PRESS_ISSUE_MUST_NOT_BE_NULL = "Press issue must not be null!";
+    public static final String ARTICLE_MUST_NOT_BE_NULL = "Article must not be null!";
 
     private InputChecker() {
     }
