@@ -16,6 +16,10 @@ public class InputChecker {
     public static final String MUST_NOT_BE_NAN = " must not be NaN!";
     public static final String MUST_BE_FINITE_NUMBER = " must be finite number!";
     public static final String MUST_BE_GREATER_THAN_ZERO = " must be greater than zero!";
+    public static final String ROW_NUMBER_MUST_BE_BETWEEN_0_INCLUSIVE_AND_3_EXCLUSIVE =
+            "Row number must be between 0 inclusive and 3 exclusive!";
+    public static final String COLUMN_NUMBER_MUST_BE_BETWEEN_0_INCLUSIVE_AND_3_EXCLUSIVE =
+            "Column number must be between 0 inclusive and 3 exclusive!";
 
     private InputChecker() {
     }
