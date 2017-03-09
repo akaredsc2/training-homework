@@ -56,40 +56,40 @@ public class StudyGrantRequest {
     }
 
     public abstract class GrantRequestState {
-        public void revoke() {
+        protected void revoke() {
         }
 
-        public void pend() {
+        protected void pend() {
         }
 
         public void consider() {
         }
 
-        public void confirm() {
+        protected void confirm() {
         }
 
-        public void reject() {
+        protected void reject() {
         }
     }
 
-    public class CreatedState extends GrantRequestState {
+    public final class CreatedState extends GrantRequestState {
         @Override
-        public void revoke() {
+        protected void revoke() {
             StudyGrantRequest.this.state = new RevokedState();
         }
 
         @Override
-        public void pend() {
+        protected void pend() {
             StudyGrantRequest.this.state = new PendingState();
         }
     }
 
-    public class RevokedState extends GrantRequestState {
+    public final class RevokedState extends GrantRequestState {
     }
 
-    public class PendingState extends GrantRequestState {
+    public final class PendingState extends GrantRequestState {
         @Override
-        public void revoke() {
+        protected void revoke() {
             StudyGrantRequest.this.state = new RevokedState();
         }
 
@@ -99,31 +99,31 @@ public class StudyGrantRequest {
         }
     }
 
-    public class ConsideringState extends GrantRequestState {
+    public final class ConsideringState extends GrantRequestState {
         @Override
-        public void revoke() {
+        protected void revoke() {
             StudyGrantRequest.this.state = new RevokedState();
         }
 
         @Override
-        public void pend() {
+        protected void pend() {
             StudyGrantRequest.this.state = new PendingState();
         }
 
         @Override
-        public void confirm() {
+        protected void confirm() {
             StudyGrantRequest.this.state = new ConfirmedState();
         }
 
         @Override
-        public void reject() {
+        protected void reject() {
             StudyGrantRequest.this.state = new RejectedState();
         }
     }
 
-    public class ConfirmedState extends GrantRequestState {
+    public final class ConfirmedState extends GrantRequestState {
     }
 
-    public class RejectedState extends GrantRequestState {
+    public final class RejectedState extends GrantRequestState {
     }
 }

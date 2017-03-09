@@ -13,6 +13,10 @@ public class InputChecker {
     public static final String TITLE_MUST_NOT_BE_NULL = "Title must not be null!";
     public static final String PRESS_ISSUE_MUST_NOT_BE_NULL = "Press issue must not be null!";
     public static final String ARTICLE_MUST_NOT_BE_NULL = "Article must not be null!";
+    public static final String NAME_MUST_NOT_BE_NULL = "Name must not be null!";
+    public static final String MUST_NOT_BE_NAN = " must not be NaN!";
+    public static final String MUST_BE_FINITE_NUMBER = " must be finite number!";
+    public static final String MUST_BE_GREATER_THAN_ZERO = " must be greater than zero!";
 
     private InputChecker() {
     }
@@ -43,6 +47,30 @@ public class InputChecker {
 
     public static void requirePositive(int number, String errorMessage) {
         requireGreaterThanOrEqualsTo(number, 0, errorMessage);
+    }
+
+    public static void requireNumber(double number, String errorMessage) {
+        if (Double.isNaN(number)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    public static void requireFinite(double number, String errorMessage) {
+        if (Double.isInfinite(number)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    public static void requireGreaterThanZero(double number, String errorMessage) {
+        if (number <= 0) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    public static void requirePositiveDouble(double number, String variableName) {
+        requireNumber(number, variableName + MUST_NOT_BE_NAN);
+        requireFinite(number, variableName + MUST_BE_FINITE_NUMBER);
+        requireGreaterThanZero(number, variableName + MUST_BE_GREATER_THAN_ZERO);
     }
 
     public static void requireInRange(int number, int lowerBound, int higherBound, String errorMessage) {
