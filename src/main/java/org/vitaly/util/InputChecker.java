@@ -13,7 +13,6 @@ public class InputChecker {
     public static final String TITLE_MUST_NOT_BE_NULL = "Title must not be null!";
     public static final String PRESS_ISSUE_MUST_NOT_BE_NULL = "Press issue must not be null!";
     public static final String ARTICLE_MUST_NOT_BE_NULL = "Article must not be null!";
-    public static final String NAME_MUST_NOT_BE_NULL = "Name must not be null!";
     public static final String MUST_NOT_BE_NAN = " must not be NaN!";
     public static final String MUST_BE_FINITE_NUMBER = " must be finite number!";
     public static final String MUST_BE_GREATER_THAN_ZERO = " must be greater than zero!";
