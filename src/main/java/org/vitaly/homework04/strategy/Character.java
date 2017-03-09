@@ -33,7 +33,7 @@ public class Character {
     }
 
     public double computeTravelTime(double distance) {
-        if (distance == 0) {
+        if (Math.abs(distance) < 0.000_001) {
             return 0;
         } else {
             InputChecker.requirePositiveDouble(distance, "Distance");

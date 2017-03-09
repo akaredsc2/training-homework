@@ -20,7 +20,7 @@ public class WordShufflingEditorTest {
     @Before
     public void setUp() throws Exception {
         title = "art";
-        String content = "word1 word2 word3";
+        String content = "word1   word2 word3   ";
         article = Article.newArticle(title, content);
         articleRegistry = new ArticleRegistry();
         articleRegistry.addArticleToRegistry(article);
