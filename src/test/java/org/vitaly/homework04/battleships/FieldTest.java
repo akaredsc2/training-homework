@@ -3,6 +3,8 @@ package org.vitaly.homework04.battleships;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.*;
 
 /**
@@ -18,17 +20,6 @@ public class FieldTest {
         field = new Field();
         ship1 = Ship.createShip(3, 4, Direction.RIGHT, ShipType.CRUISER);
         fleet = new Fleet();
-
-        fleet.addToFleet(Ship.createShip(1, 1, Direction.RIGHT, ShipType.SUBMARINE));
-        fleet.addToFleet(Ship.createShip(1, 3, Direction.RIGHT, ShipType.SUBMARINE));
-        fleet.addToFleet(Ship.createShip(1, 5, Direction.RIGHT, ShipType.SUBMARINE));
-        fleet.addToFleet(Ship.createShip(1, 7, Direction.RIGHT, ShipType.SUBMARINE));
-        fleet.addToFleet(Ship.createShip(3, 1, Direction.RIGHT, ShipType.DESTROYER));
-        fleet.addToFleet(Ship.createShip(3, 4, Direction.RIGHT, ShipType.DESTROYER));
-        fleet.addToFleet(Ship.createShip(3, 7, Direction.RIGHT, ShipType.DESTROYER));
-        fleet.addToFleet(Ship.createShip(5, 1, Direction.RIGHT, ShipType.CRUISER));
-        fleet.addToFleet(Ship.createShip(5, 5, Direction.RIGHT, ShipType.CRUISER));
-        fleet.addToFleet(Ship.createShip(7, 1, Direction.RIGHT, ShipType.BATTLESHIP));
     }
 
     @Test
@@ -41,6 +32,16 @@ public class FieldTest {
                 assertEquals(expectedCell, cell);
             }
         }
+    }
+
+    @Test
+    public void newFieldIsNotFilledWithShips() throws Exception {
+        assertFalse(field.isFilledWithShips());
+    }
+
+    @Test
+    public void newFieldShipListIsEmpty() throws Exception {
+        assertThat(field.getShips(), empty());
     }
 
     @Test
@@ -194,24 +195,25 @@ public class FieldTest {
     }
 
     @Test
-    public void filledFieldContainsShips() throws Exception {
+    public void filledFieldIsFilled() throws Exception {
+        fillFieldWithFleet();
+
+        assertTrue(field.isFilledWithShips());
+    }
+
+    private void fillFieldWithFleet() {
+        fleet.addToFleet(Ship.createShip(1, 1, Direction.RIGHT, ShipType.SUBMARINE));
+        fleet.addToFleet(Ship.createShip(1, 3, Direction.RIGHT, ShipType.SUBMARINE));
+        fleet.addToFleet(Ship.createShip(1, 5, Direction.RIGHT, ShipType.SUBMARINE));
+        fleet.addToFleet(Ship.createShip(1, 7, Direction.RIGHT, ShipType.SUBMARINE));
+        fleet.addToFleet(Ship.createShip(3, 1, Direction.RIGHT, ShipType.DESTROYER));
+        fleet.addToFleet(Ship.createShip(3, 4, Direction.RIGHT, ShipType.DESTROYER));
+        fleet.addToFleet(Ship.createShip(3, 7, Direction.RIGHT, ShipType.DESTROYER));
+        fleet.addToFleet(Ship.createShip(5, 1, Direction.RIGHT, ShipType.CRUISER));
+        fleet.addToFleet(Ship.createShip(5, 5, Direction.RIGHT, ShipType.CRUISER));
+        fleet.addToFleet(Ship.createShip(7, 1, Direction.RIGHT, ShipType.BATTLESHIP));
+
         field.fillWithShips(fleet);
-        Cell[][] cells = field.getCells();
-        int actualShipCellCount = 0;
-        for (Cell[] row : cells) {
-            for (Cell cell : row) {
-                if (cell == Cell.SHIP) {
-                    actualShipCellCount += 1;
-                }
-            }
-        }
-
-        int expectedShipCellsCount = Fleet.BATTLESHIP_MAX_COUNT * ShipType.BATTLESHIP.getFunnelCount()
-                + Fleet.CRUISER_MAX_COUNT * ShipType.CRUISER.getFunnelCount()
-                + Fleet.DESTROYER_MAX_COUNT * ShipType.DESTROYER.getFunnelCount()
-                + Fleet.SUBMARINE_MAX_COUNT * ShipType.SUBMARINE.getFunnelCount();
-
-        assertEquals(expectedShipCellsCount, actualShipCellCount);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -222,5 +224,81 @@ public class FieldTest {
     @Test(expected = IllegalArgumentException.class)
     public void fillingFieldWithNotStaffedFleetShouldThrowException() throws Exception {
         field.fillWithShips(new Fleet());
+    }
+
+    @Test
+    public void setCellChangesCellValue() throws Exception {
+        Cell expectedCellValue = Cell.FIRED;
+        int row = 0;
+        int column = 0;
+
+        field.setCell(row, column, expectedCellValue);
+        Cell actualCellValue = field.getCells()[row][column];
+
+        assertThat(actualCellValue, allOf(
+                not(equalTo(Cell.EMPTY)),
+                equalTo(expectedCellValue)));
+    }
+
+    @Test
+    public void setCellDoesNotAffectsShip() throws Exception {
+        fillFieldWithFleet();
+        int row = 1;
+        int column = 1;
+
+        field.setCell(row, column, Cell.FIRED_SHIP);
+        Ship ship = field.getShips().get(0);
+        Cell actualCell = ship.getCells()[0];
+
+        assertThat(actualCell, not(equalTo(Cell.FIRED_SHIP)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setCellWithRowLessThanZeroShouldThrowException() throws Exception {
+        field.setCell(-1, 0, Cell.FIRED);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setCellWithColumnLessThanZeroShouldThrowException() throws Exception {
+        field.setCell(Field.FIELD_SIZE, 0, Cell.FIRED);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setCellWithRowGreaterThanOrEqualToFieldSizeShouldThrowException() throws Exception {
+        field.setCell(0, -1, Cell.FIRED);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setCellWithColumnGreaterThanOrEqualToFieldSizeShouldThrowException() throws Exception {
+        field.setCell(0, Field.FIELD_SIZE, Cell.FIRED);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setNullCellShouldThrowException() throws Exception {
+        field.setCell(0, 0, null);
+    }
+
+    @Test
+    public void newFieldHasZeroFiredShips() throws Exception {
+        assertEquals(0, field.getFiredShipCount());
+    }
+
+    @Test
+    public void unfiredFieldHasZeroFiredShips() throws Exception {
+        fillFieldWithFleet();
+
+        assertEquals(0, field.getFiredShipCount());
+    }
+
+    @Test
+    public void firingShipsChangeFiredCount() throws Exception {
+        fillFieldWithFleet();
+
+        int row = 1;
+        int column = 1;
+        field.setCell(row, column, Cell.FIRED_SHIP);
+
+        int expected = 1;
+        assertEquals(expected, field.getFiredShipCount());
     }
 }

@@ -1,19 +1,26 @@
 package org.vitaly.homework04.battleships;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import static org.vitaly.util.InputChecker.SHIP_MUST_NOT_BE_NULL;
-import static org.vitaly.util.InputChecker.requireNonNull;
+import static org.vitaly.util.InputChecker.*;
 
 /**
  * Created by vitaly on 2017-03-12.
  */
 public class Field {
     public static final int FIELD_SIZE = 10;
+    public static final int SHIP_CELLS_COUNT = Fleet.BATTLESHIP_MAX_COUNT * ShipType.BATTLESHIP.getFunnelCount()
+            + Fleet.CRUISER_MAX_COUNT * ShipType.CRUISER.getFunnelCount()
+            + Fleet.DESTROYER_MAX_COUNT * ShipType.DESTROYER.getFunnelCount()
+            + Fleet.SUBMARINE_MAX_COUNT * ShipType.SUBMARINE.getFunnelCount();
+
     private Cell[][] cells;
+    private List<Ship> ships;
 
     public Field() {
         this.cells = new Cell[FIELD_SIZE][];
@@ -21,10 +28,24 @@ public class Field {
             cells[i] = new Cell[FIELD_SIZE];
             Arrays.fill(cells[i], Cell.EMPTY);
         }
+        this.ships = new ArrayList<>();
     }
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public List<Ship> getShips() {
+        return Collections.unmodifiableList(ships);
+    }
+
+    public void setCell(int row, int column, Cell value) {
+        requireInRange(row, 0, FIELD_SIZE, "Row number must be between 0 inclusive and " + FIELD_SIZE + " exclusive!");
+        requireInRange(column, 0, FIELD_SIZE,
+                "Column number must be between 0 inclusive and " + FIELD_SIZE + " exclusive!");
+        requireNonNull(value, "Cell value must not be null!");
+
+        cells[row][column] = value;
     }
 
     public void fillWithShips(Fleet fleet) {
@@ -33,7 +54,7 @@ public class Field {
             throw new IllegalArgumentException("Fleet must be staffed before filling field!");
         }
 
-        List<Ship> ships = fleet.getShips();
+        ships = fleet.getShips();
 
         for (Ship ship : ships) {
             if (canBePlacedOnField(ship)) {
@@ -125,6 +146,31 @@ public class Field {
         }
     }
 
+    public boolean isFilledWithShips() {
+        int actualShipCellCount = 0;
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                if (cell == Cell.SHIP || cell == Cell.FIRED_SHIP) {
+                    actualShipCellCount += 1;
+                }
+            }
+        }
+
+        return actualShipCellCount == SHIP_CELLS_COUNT;
+    }
+
+    public int getFiredShipCount() {
+        int firedShipCellCount = 0;
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                if (cell == Cell.FIRED_SHIP) {
+                    firedShipCellCount += 1;
+                }
+            }
+        }
+        return firedShipCellCount;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -135,5 +181,24 @@ public class Field {
             builder.append(System.lineSeparator());
         }
         return builder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(getCells());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Field field = (Field) o;
+
+        return Arrays.deepEquals(getCells(), field.getCells());
     }
 }
