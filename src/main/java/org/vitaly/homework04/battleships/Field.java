@@ -1,9 +1,10 @@
 package org.vitaly.homework04.battleships;
 
-import org.vitaly.util.InputChecker;
-
 import java.util.Arrays;
 import java.util.List;
+
+import static org.vitaly.util.InputChecker.SHIP_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
  * Created by vitaly on 2017-03-12.
@@ -24,24 +25,23 @@ public class Field {
         return cells;
     }
 
-    public boolean fillWithShips(List<Ship> ships) {
-        InputChecker.requireNonNull(ships, "Ship list must not be null!");
-        if (ships.size() != 10) {
-            throw new IllegalArgumentException("Ship list must have size of 10!");
+    public void fillWithShips(Fleet fleet) {
+        requireNonNull(fleet, "Fleet must not be null!");
+        if (!fleet.isStaffed()) {
+            throw new IllegalArgumentException("Fleet must be staffed before filling field!");
         }
+
+        List<Ship> ships = fleet.getShips();
 
         for (Ship ship : ships) {
             if (canBePlacedOnField(ship)) {
                 placeShip(ship);
-            } else {
-                return false;
             }
         }
-        return true;
     }
 
     public boolean canBePlacedOnField(Ship ship) {
-        InputChecker.requireNonNull(ship, "Ship must not be null!");
+        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
 
         int checkFromRow = -100;
         int checkFromColumn = -100;
@@ -91,6 +91,7 @@ public class Field {
     }
 
     public void placeShip(Ship ship) {
+        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
         if (!canBePlacedOnField(ship)) {
             throw new IllegalArgumentException("Ship must not overlap other ships!");
         }

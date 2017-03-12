@@ -20,6 +20,7 @@ public class InputChecker {
             "Row number must be between 0 inclusive and 3 exclusive!";
     public static final String COLUMN_NUMBER_MUST_BE_BETWEEN_0_INCLUSIVE_AND_3_EXCLUSIVE =
             "Column number must be between 0 inclusive and 3 exclusive!";
+    public static final String SHIP_MUST_NOT_BE_NULL = "Ship must not be null!";
 
     private InputChecker() {
     }
