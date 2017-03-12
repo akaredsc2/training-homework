@@ -3,6 +3,8 @@ package org.vitaly.homework04.battleships;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static org.vitaly.util.InputChecker.SHIP_MUST_NOT_BE_NULL;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
@@ -73,21 +75,20 @@ public class Field {
             checkToColumn = ship.getOriginColumn() + 1;
         }
 
-        for (int i = checkFromRow; i <= checkToRow; i++) {
-            for (int j = checkFromColumn; j <= checkToColumn; j++) {
-                if (inField(i) && inField(j)) {
-                    if (cells[i][j] != Cell.EMPTY) {
-                        return false;
-                    }
+        int adjustedCheckFromRow = max(0, checkFromRow);
+        int adjustedCheckFromColumn = max(0, checkFromColumn);
+        int adjustedCheckToRow = min(checkToRow, FIELD_SIZE - 1);
+        int adjustedCheckToColumn = min(checkToColumn, FIELD_SIZE - 1);
+
+        for (int i = adjustedCheckFromRow; i <= adjustedCheckToRow; i++) {
+            for (int j = adjustedCheckFromColumn; j <= adjustedCheckToColumn; j++) {
+                if (cells[i][j] != Cell.EMPTY) {
+                    return false;
                 }
             }
         }
 
         return true;
-    }
-
-    private boolean inField(int index) {
-        return index >= 0 && index < FIELD_SIZE;
     }
 
     public void placeShip(Ship ship) {

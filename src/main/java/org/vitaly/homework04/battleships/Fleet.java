@@ -35,11 +35,12 @@ public class Fleet {
     public boolean addToFleet(Ship ship) {
         requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
 
-        return !isStaffed() &&
-                (acceptAsSubmarine(ship)
-                        || acceptAsDestroyer(ship)
-                        || acceptAsCruiser(ship)
-                        || acceptAsBattleship(ship));
+        boolean addedAsSubmarine = acceptAsSubmarine(ship);
+        boolean addedAsDestroyer = addedAsSubmarine || acceptAsDestroyer(ship);
+        boolean addedAsCruiser = addedAsDestroyer || acceptAsCruiser(ship);
+        boolean addedAsShip = addedAsCruiser || acceptAsBattleship(ship);
+
+        return !isStaffed() && addedAsShip;
     }
 
     public boolean acceptAsSubmarine(Ship ship) {
