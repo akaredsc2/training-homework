@@ -64,7 +64,7 @@ public class Field {
     }
 
     public boolean canBePlacedOnField(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
 
         int checkFromRow = -100;
         int checkFromColumn = -100;
@@ -113,7 +113,7 @@ public class Field {
     }
 
     public void placeShip(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
         if (!canBePlacedOnField(ship)) {
             throw new IllegalArgumentException("Ship must not overlap other ships!");
         }

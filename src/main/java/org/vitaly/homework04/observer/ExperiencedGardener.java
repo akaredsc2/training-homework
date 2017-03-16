@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.vitaly.util.InputChecker.PRESS_ISSUE_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.PRESS_ISSUE;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
@@ -20,7 +20,7 @@ public class ExperiencedGardener implements Subscriber {
 
     @Override
     public void inform(Press newIssue) {
-        requireNonNull(newIssue, PRESS_ISSUE_MUST_NOT_BE_NULL);
+        requireNonNull(newIssue, PRESS_ISSUE);
 
         if (newIssue.getName().toLowerCase().contains("garden") && newIssue.getPaperQuality() == PaperQuality.HIGH) {
             pressSet.add(newIssue);

@@ -141,7 +141,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void setDataAt(int position, T data) {
-        requirePositive(size, LIST_IS_EMPTY);
+        requireZeroOrPositiveInteger(size, LIST_IS_EMPTY);
         requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         Entry<T> first = getFirst();
@@ -157,7 +157,7 @@ public class DoublyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public T getDataAt(int position) {
-        requirePositive(size, LIST_IS_EMPTY);
+        requireZeroOrPositiveInteger(size, LIST_IS_EMPTY);
         requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         return SelfMadeLinkedList.getDataAt(this, position);

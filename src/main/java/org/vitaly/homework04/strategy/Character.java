@@ -44,7 +44,6 @@ public class Character {
     }
 
     public static Character createCharacter(String name, CharacterRace race, double moveSpeed) {
-        requireNonNull(name, "Name must not be null!");
         requireNonEmptyString(name, "Name must not be empty string!");
         requireNonNull(race, "Race must not be null!");
         requirePositiveDouble(moveSpeed, "Move speed");

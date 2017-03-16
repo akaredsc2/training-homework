@@ -1,6 +1,6 @@
 package org.vitaly.homework04.observer;
 
-import static org.vitaly.util.InputChecker.TITLE_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.TITLE;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
@@ -18,14 +18,14 @@ public class GardeningPublisher implements Publisher {
 
     @Override
     public Newspaper publishNewspaper(String title) {
-        requireNonNull(title, TITLE_MUST_NOT_BE_NULL);
+        requireNonNull(title, TITLE);
 
         return new Newspaper("Sanctuary Garden", title);
     }
 
     @Override
     public Magazine publishMagazine(String title) {
-        requireNonNull(title, TITLE_MUST_NOT_BE_NULL);
+        requireNonNull(title, TITLE);
 
         return new Magazine("Gardens of the Moon", title);
     }

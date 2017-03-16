@@ -75,7 +75,7 @@ public class PriorityQueue<T> {
 
     public void increaseKey(int index, T element) {
         requireNonNull(element, "Element of priority queue must not be null!");
-        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
+        requireZeroOrPositiveInteger(index, INDEX_IS_LESS_THAN_ZERO);
 
         if (comparator.compare(element, elements[index]) < 0) {
             throw new IllegalArgumentException("New key is smaller than current key");
@@ -108,17 +108,17 @@ public class PriorityQueue<T> {
     }
 
     private int getParentIndex(int index) {
-        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
+        requireZeroOrPositiveInteger(index, INDEX_IS_LESS_THAN_ZERO);
         return index >> 1;
     }
 
     private int getLeftChildIndex(int index) {
-        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
+        requireZeroOrPositiveInteger(index, INDEX_IS_LESS_THAN_ZERO);
         return index << 1;
     }
 
     private int getRightChildIndex(int index) {
-        requirePositive(index, INDEX_IS_LESS_THAN_ZERO);
+        requireZeroOrPositiveInteger(index, INDEX_IS_LESS_THAN_ZERO);
         return index << 1 | 1;
     }
 }

@@ -1,28 +1,29 @@
 package org.vitaly.homework04.abstractFactory;
 
-import java.util.Locale;
-
 /**
- * Created by vitaly on 01.03.17.
+ * Created by vitaly on 2017-03-16.
  */
 public class Movie {
-    private final String name;
-    private final Locale locale;
+    private Audio audio;
+    private Image image;
+    private Text text;
 
-    public Movie(String name, String language) {
-        this.name = name;
-        this.locale = new Locale(language);
+    public Movie(Audio audio, Image image, Text text) {
+        this.audio = audio;
+        this.image = image;
+        this.text = text;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSoundtrackLanguage() {
-        return locale.getDisplayLanguage();
-    }
-
-    public String getSubtitlesLanguage() {
-        return locale.getDisplayLanguage();
+    public String play() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append("Playing ")
+                .append(image.getName())
+                .append(" with ")
+                .append(audio.getLanguage())
+                .append(" voice over and ")
+                .append(text.getLanguage())
+                .append(" subtitles.");
+        return stringBuilder.toString();
     }
 }

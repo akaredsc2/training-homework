@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.vitaly.util.InputChecker.ARTICLE_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.ARTICLE;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
@@ -18,7 +18,7 @@ public class ArticleRegistry {
     }
 
     public boolean addArticleToRegistry(Article article) {
-        requireNonNull(article, ARTICLE_MUST_NOT_BE_NULL);
+        requireNonNull(article, ARTICLE);
 
         if (articles.contains(article)) {
             return false;

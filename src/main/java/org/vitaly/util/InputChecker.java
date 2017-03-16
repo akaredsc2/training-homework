@@ -7,33 +7,33 @@ public class InputChecker {
     public static final String POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE =
             "Position must be between zero inclusive and list size exclusive!";
     public static final String LIST_IS_EMPTY = "List is empty!";
-    public static final String LIST_MUST_NOT_BE_NULL = "List must not be null!";
-    public static final String COMPARATOR_MUST_NOT_BE_NULL = "Comparator must not be null!";
+    public static final String LIST = "List";
+    public static final String COMPARATOR = "Comparator";
     public static final String INDEX_IS_LESS_THAN_ZERO = "Index is less than zero!";
-    public static final String TITLE_MUST_NOT_BE_NULL = "Title must not be null!";
-    public static final String PRESS_ISSUE_MUST_NOT_BE_NULL = "Press issue must not be null!";
-    public static final String ARTICLE_MUST_NOT_BE_NULL = "Article must not be null!";
-    public static final String MUST_NOT_BE_NAN = " must not be NaN!";
-    public static final String MUST_BE_FINITE_NUMBER = " must be finite number!";
-    public static final String MUST_BE_GREATER_THAN_ZERO = " must be greater than zero!";
+    public static final String TITLE = "Title";
+    public static final String PRESS_ISSUE = "Press issue";
+    public static final String ARTICLE = "Article";
     public static final String ROW_NUMBER_MUST_BE_BETWEEN_0_INCLUSIVE_AND_3_EXCLUSIVE =
             "Row number must be between 0 inclusive and 3 exclusive!";
     public static final String COLUMN_NUMBER_MUST_BE_BETWEEN_0_INCLUSIVE_AND_3_EXCLUSIVE =
             "Column number must be between 0 inclusive and 3 exclusive!";
-    public static final String SHIP_MUST_NOT_BE_NULL = "Ship must not be null!";
+    public static final String SHIP = "Ship";
+    public static final String NAME = "Name";
+    public static final String LANGUAGE = "Language";
 
     private InputChecker() {
     }
 
     public static void requireNonNull(Object object, String errorMessage) {
         if (object == null) {
-            throw new IllegalArgumentException(errorMessage);
+            throw new IllegalArgumentException(errorMessage + " must not be null!");
         }
     }
 
     public static void requireNonEmptyString(String string, String errorMessage) {
+        requireNonNull(string, errorMessage);
         if (string.isEmpty()) {
-            throw new IllegalArgumentException(errorMessage);
+            throw new IllegalArgumentException(errorMessage + " must not be empty string!");
         }
     }
 
@@ -49,7 +49,7 @@ public class InputChecker {
         }
     }
 
-    public static void requirePositive(int number, String errorMessage) {
+    public static void requireZeroOrPositiveInteger(int number, String errorMessage) {
         requireGreaterThanOrEqualsTo(number, 0, errorMessage);
     }
 
@@ -72,9 +72,9 @@ public class InputChecker {
     }
 
     public static void requirePositiveDouble(double number, String variableName) {
-        requireNumber(number, variableName + MUST_NOT_BE_NAN);
-        requireFinite(number, variableName + MUST_BE_FINITE_NUMBER);
-        requireGreaterThanZero(number, variableName + MUST_BE_GREATER_THAN_ZERO);
+        requireNumber(number, variableName + " must not be NaN!");
+        requireFinite(number, variableName + " must be finite number!");
+        requireGreaterThanZero(number, variableName + " must be greater than zero!");
     }
 
     public static void requireInRange(int number, int lowerBound, int higherBound, String errorMessage) {

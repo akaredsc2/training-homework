@@ -1,6 +1,6 @@
 package org.vitaly.homework04.prototype;
 
-import static org.vitaly.util.InputChecker.TITLE_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.TITLE;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
@@ -32,7 +32,7 @@ public class Article implements Cloneable {
     }
 
     public static Article newArticle(String title, String content) {
-        requireNonNull(title, TITLE_MUST_NOT_BE_NULL);
+        requireNonNull(title, TITLE);
         requireNonNull(content, "Content must not be null!");
 
         return new Article(title, content);

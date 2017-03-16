@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringJoiner;
 
-import static org.vitaly.util.InputChecker.ARTICLE_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.ARTICLE;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
@@ -13,7 +13,7 @@ import static org.vitaly.util.InputChecker.requireNonNull;
 public class WordShufflingEditor implements Editor {
     @Override
     public Article edit(Article article) throws CloneNotSupportedException {
-        requireNonNull(article, ARTICLE_MUST_NOT_BE_NULL);
+        requireNonNull(article, ARTICLE);
 
         Article clone = article.clone();
 

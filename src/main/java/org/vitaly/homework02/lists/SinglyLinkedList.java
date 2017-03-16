@@ -85,7 +85,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public T getDataAt(int position) {
-        requirePositive(size, LIST_IS_EMPTY);
+        requireZeroOrPositiveInteger(size, LIST_IS_EMPTY);
         requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         return SelfMadeLinkedList.getDataAt(this, position);
@@ -93,7 +93,7 @@ public class SinglyLinkedList<T> implements SelfMadeLinkedList<T>, Iterable<T> {
 
     @Override
     public void setDataAt(int position, T data) {
-        requirePositive(size, LIST_IS_EMPTY);
+        requireZeroOrPositiveInteger(size, LIST_IS_EMPTY);
         requireInRange(position, 0, size, POSITION_MUST_BE_BETWEEN_ZERO_AND_LIST_SIZE);
 
         if (first != null) {

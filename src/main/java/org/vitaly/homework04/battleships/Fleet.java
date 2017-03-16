@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.vitaly.util.InputChecker.SHIP_MUST_NOT_BE_NULL;
+import static org.vitaly.util.InputChecker.SHIP;
 import static org.vitaly.util.InputChecker.requireNonNull;
 
 /**
@@ -33,7 +33,7 @@ public class Fleet {
     }
 
     public boolean addToFleet(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
 
         boolean addedAsSubmarine = acceptAsSubmarine(ship);
         boolean addedAsDestroyer = addedAsSubmarine || acceptAsDestroyer(ship);
@@ -44,7 +44,7 @@ public class Fleet {
     }
 
     public boolean acceptAsSubmarine(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
 
         if (ship.getShipType() == ShipType.SUBMARINE && submarineCount + 1 <= SUBMARINE_MAX_COUNT
                 && currentArrangement.canBePlacedOnField(ship)) {
@@ -56,7 +56,7 @@ public class Fleet {
     }
 
     public boolean acceptAsDestroyer(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
 
         if (ship.getShipType() == ShipType.DESTROYER && destroyerCount + 1 <= DESTROYER_MAX_COUNT
                 && currentArrangement.canBePlacedOnField(ship)) {
@@ -68,7 +68,7 @@ public class Fleet {
     }
 
     public boolean acceptAsCruiser(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
 
         if (ship.getShipType() == ShipType.CRUISER && cruiserCount + 1 <= CRUISER_MAX_COUNT
                 && currentArrangement.canBePlacedOnField(ship)) {
@@ -80,7 +80,7 @@ public class Fleet {
     }
 
     public boolean acceptAsBattleship(Ship ship) {
-        requireNonNull(ship, SHIP_MUST_NOT_BE_NULL);
+        requireNonNull(ship, SHIP);
 
         if (ship.getShipType() == ShipType.BATTLESHIP && battleshipCount + 1 <= BATTLESHIP_MAX_COUNT
                 && currentArrangement.canBePlacedOnField(ship)) {
