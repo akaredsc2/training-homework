@@ -34,21 +34,28 @@ public class Game {
 
     public void turn(int row, int column) {
         Cell[][] currentPlayerCells = currentPlayer.getOpponentField().getCells();
-        boolean isCurrentPlayerCellFired = currentPlayerCells[row][column] == Cell.FIRED
-                || currentPlayerCells[row][column] == Cell.FIRED_SHIP;
 
-        if (isInBound(row) && isInBound(column) && !isCurrentPlayerCellFired) {
-            Cell[][] opponentCells = nextPlayer.getOwnField().getCells();
+        if (isInBound(row) && isInBound(column)) {
+            boolean isCurrentPlayerCellFired = currentPlayerCells[row][column] == Cell.FIRED
+                    || currentPlayerCells[row][column] == Cell.FIRED_SHIP;
 
-            if (opponentCells[row][column] == Cell.EMPTY) {
-                currentPlayerCells[row][column] = Cell.FIRED;
-                opponentCells[row][column] = Cell.FIRED;
-
-                swapPlayers();
-            } else if (opponentCells[row][column] == Cell.SHIP) {
-                currentPlayerCells[row][column] = Cell.FIRED_SHIP;
-                opponentCells[row][column] = Cell.FIRED_SHIP;
+            if (!isCurrentPlayerCellFired) {
+                shoot(row, column, currentPlayerCells);
             }
+        }
+    }
+
+    private void shoot(int row, int column, Cell[][] currentPlayerCells) {
+        Cell[][] opponentCells = nextPlayer.getOwnField().getCells();
+
+        if (opponentCells[row][column] == Cell.EMPTY) {
+            currentPlayerCells[row][column] = Cell.FIRED;
+            opponentCells[row][column] = Cell.FIRED;
+
+            swapPlayers();
+        } else if (opponentCells[row][column] == Cell.SHIP) {
+            currentPlayerCells[row][column] = Cell.FIRED_SHIP;
+            opponentCells[row][column] = Cell.FIRED_SHIP;
         }
     }
 
