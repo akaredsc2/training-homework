@@ -31,11 +31,11 @@ public class Video implements Image {
 
         Video video = (Video) o;
 
-        return name.equals(video.name);
+        return name != null ? name.equals(video.name) : video.name == null;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return name != null ? name.hashCode() : 0;
     }
 }

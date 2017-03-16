@@ -24,7 +24,7 @@ public class VoiceOver implements Audio {
 
     @Override
     public String play() {
-        return "Playing " + name + " subtitles in " + language;
+        return "Playing " + name + " voice over in " + language;
     }
 
     @Override
@@ -38,13 +38,14 @@ public class VoiceOver implements Audio {
 
         VoiceOver voiceOver = (VoiceOver) o;
 
-        return name.equals(voiceOver.name) && language.equals(voiceOver.language);
+        return (name != null ? name.equals(voiceOver.name) : voiceOver.name == null)
+                && (language != null ? language.equals(voiceOver.language) : voiceOver.language == null);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + language.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (language != null ? language.hashCode() : 0);
         return result;
     }
 }

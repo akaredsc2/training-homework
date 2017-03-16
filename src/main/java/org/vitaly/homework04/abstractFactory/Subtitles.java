@@ -24,17 +24,22 @@ public class Subtitles implements Text {
 
     @Override
     public String print() {
-        return "Playing " + name + " voice over in " + language;
+        return "Playing " + name + " subtitles in " + language;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Subtitles subtitles = (Subtitles) o;
 
-        return name.equals(subtitles.name) && language.equals(subtitles.language);
+        return (name != null ? name.equals(subtitles.name) : subtitles.name == null)
+                && (language != null ? language.equals(subtitles.language) : subtitles.language == null);
     }
 
     @Override
