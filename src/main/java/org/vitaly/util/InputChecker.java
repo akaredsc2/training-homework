@@ -22,6 +22,7 @@ public class InputChecker {
     public static final String LANGUAGE = "Language";
     public static final String LEFT_COMPONENT = "Left component";
     public static final String RIGHT_COMPONENT = "Right component";
+    public static final String NEXT_HANDLER = "Next handler";
 
     private InputChecker() {
     }
