@@ -1,5 +1,10 @@
 package org.vitaly.homework04.composite;
 
+import org.vitaly.util.InputChecker;
+
+import static org.vitaly.util.InputChecker.LEFT_COMPONENT;
+import static org.vitaly.util.InputChecker.RIGHT_COMPONENT;
+
 /**
  * Created by vitaly on 2017-03-04.
  */
@@ -8,6 +13,9 @@ public class Multiplication implements Component {
     private Component right;
 
     public Multiplication(Component left, Component right) {
+        InputChecker.requireNonNull(left, LEFT_COMPONENT);
+        InputChecker.requireNonNull(right, RIGHT_COMPONENT);
+
         this.left = left;
         this.right = right;
     }

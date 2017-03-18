@@ -64,7 +64,7 @@ public class PriorityQueue<T> {
 
     public T pop() {
         if (heapSize < 1) {
-            throw new IllegalArgumentException("Can't pop from empty priority queue!");
+            throw new IllegalArgumentException("Can't pop from empty getPriority queue!");
         }
         T result = peek();
         elements[0] = elements[heapSize - 1];
@@ -74,7 +74,7 @@ public class PriorityQueue<T> {
     }
 
     public void increaseKey(int index, T element) {
-        requireNonNull(element, "Element of priority queue must not be null!");
+        requireNonNull(element, "Element of getPriority queue must not be null!");
         requireZeroOrPositiveInteger(index, INDEX_IS_LESS_THAN_ZERO);
 
         if (comparator.compare(element, elements[index]) < 0) {
@@ -89,7 +89,7 @@ public class PriorityQueue<T> {
     }
 
     public void insert(T element) {
-        requireNonNull(element, "Element of priority queue must not be null!");
+        requireNonNull(element, "Element of getPriority queue must not be null!");
 
         ensureCapacity(heapSize);
 

@@ -20,6 +20,8 @@ public class InputChecker {
     public static final String SHIP = "Ship";
     public static final String NAME = "Name";
     public static final String LANGUAGE = "Language";
+    public static final String LEFT_COMPONENT = "Left component";
+    public static final String RIGHT_COMPONENT = "Right component";
 
     private InputChecker() {
     }

@@ -14,9 +14,4 @@ public class Number implements Component {
     public long compute() {
         return value;
     }
-
-    @Override
-    public String toString() {
-        return "" + value;
-    }
 }
