@@ -8,8 +8,11 @@ import static org.vitaly.util.InputChecker.requireNonEmptyString;
  * Created by vitaly on 2017-03-04.
  */
 public class ComponentFactory {
-    private static final String TOKEN = "Token";
     private static ComponentFactory instance = new ComponentFactory();
+
+    private static final String TOKEN = "Token";
+    private static final String OPERATORS_REGEX = "[\\*\\/\\+\\-]";
+    private static final String SUPPLIED_TOKEN_IS_NOT_SUPPORTED = "Supplied token is not supported!";
 
     public static final String PLUS = "+";
     public static final String MINUS = "-";
@@ -17,9 +20,6 @@ public class ComponentFactory {
     public static final String DIVIDE = "/";
     public static final String LEFT_PARENTHESIS = "(";
     public static final String RIGHT_PARENTHESIS = ")";
-
-    private final String OPERATORS_REGEXP = "[\\*\\/\\+\\-]";
-    private final String SUPPLIED_TOKEN_IS_NOT_SUPPORTED = "Supplied token is not supported!";
     public static final String PARENTHESIS_MISMATCH = "Parenthesis mismatch!";
 
     private ComponentFactory() {
@@ -35,7 +35,7 @@ public class ComponentFactory {
 
         while (!reversePolishNotationTokens.isEmpty()) {
             String token = reversePolishNotationTokens.poll();
-            if (token.matches(OPERATORS_REGEXP)) {
+            if (token.matches(OPERATORS_REGEX)) {
                 Component right = componentStack.pop();
                 Component left = componentStack.pop();
                 Component operation = createComponentFromToken(token, left, right);
@@ -78,7 +78,7 @@ public class ComponentFactory {
             if (token.matches(positiveIntegerOrZeroRegex)) {
                 result.offer(token);
             }
-            if (token.matches(OPERATORS_REGEXP)) {
+            if (token.matches(OPERATORS_REGEX)) {
                 moveOperatorsWithHigherPriorityToResult(operatorStack, result, token);
                 operatorStack.push(token);
             }
